@@ -1,13 +1,49 @@
 <template>
   <div>
+    <div>{{text}}</div>
+    <p>{{test}}</p>
     <router-view/>
   </div>
 </template>
 
 <script>
 import iterator from './components/HelloWorld'
+import { mapMutations, mapActions } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      text: '11112222'
+    }
+  },
+  computed: {
+    test: function() {
+      return this.$store.state.testText
+    }
+  },
+  created() {
+    // mutation1
+    this.$store.commit('DOG', {name: 'newDog'})
+    // mutation2
+    this.changeDogAge({ name: 2222 })
+
+    this.$store.dispatch('updateDog')
+
+    this.handleUpdateDog({name: '我是辅助函数定义的'})
+
+
+    //getters
+    console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
+  },
+  methods: {
+    ...mapMutations({
+      changeDogAge: 'DOG'
+    }),
+    ...mapActions({
+      handleUpdateDog: 'updateDog'
+    })
+  }
 }
 </script>
 
