@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <!-- <div>{{text}}</div>
-    <p>{{test}}</p> -->
-    <router-view/>
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import iterator from './components/HelloWorld'
+// import iterator from './components/HelloWorld'
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -23,6 +21,9 @@ export default {
     }
   },
   created() {
+    this.$router.replace({
+      name: 'face-check'
+    })
     // mutation1
     this.$store.commit('DOG', {name: 'newDog'})
     // mutation2

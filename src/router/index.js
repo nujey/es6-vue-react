@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import xifu from '@/components/xifu'
+import routes from './routes'
 
 Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'xifu',
-      component: xifu
-    }
-  ]
+const router = new Router({
+  routes,
+  mode: 'history'
 })
+
+router.beforeEach((to, from, next) => {
+  document.title = to.query.title || to.meta.title || '随缘'
+  next()
+})
+
+export default router

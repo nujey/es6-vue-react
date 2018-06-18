@@ -41,15 +41,15 @@ export default {
   },
   created() {
     // juqery 测试
-    $.ajax({
-      type: 'GET',
-      url: 'https://api.douban.com/v2/book/1220562',
-      dataType: "jsonp",
-      data: {},
-      success: function(data) {
-        console.log(data)
-      }
-    })
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'https://api.douban.com/v2/book/1220562',
+    //   dataType: "jsonp",
+    //   data: {},
+    //   success: function(data) {
+    //     console.log(data)
+    //   }
+    // })
   },
   methods: {
     handleVideo: function(e) {
