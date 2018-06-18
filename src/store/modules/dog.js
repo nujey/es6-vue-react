@@ -21,7 +21,7 @@ const mutations = {
    * @param {Object} newDog 狗狗新名字
    */
   [DOG](state, newDog){
-    console.log(state)
+    // console.log(state)
     state.name = newDog.name
   }
 }
