@@ -21,9 +21,9 @@ export default {
     }
   },
   created() {
-    this.$router.replace({
-      name: 'face-check'
-    })
+    // this.$router.replace({
+    //   name: 'face-check'
+    // })
     // mutation1
     this.$store.commit('DOG', {name: 'newDog'})
     // mutation2
@@ -35,7 +35,7 @@ export default {
 
 
     //getters
-    console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
+    // console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
   },
   methods: {
     ...mapMutations({

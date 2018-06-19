@@ -20,9 +20,17 @@ export default [
       path: 'xifu',
       meta: {
         title: '媳妇flex',
-        flex: true
+        layout: true
       },
       component: () => import('../../views/file/xifu.vue')
+    }, {
+      name: 'file-reader',
+      path: 'file-reader',
+      meta: {
+        title: 'filereader',
+        layout: true
+      },
+      component: () => import('../../views/file/reader.vue')
     }]
   }
 ]
