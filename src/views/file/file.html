@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #000;
+      color: #fff;
+    }
+    .image-scan {
+      text-align: center;
+    }
+    .image-show {
+      width: 160px;
+      height: 200px;
+      display: inline-block;
+      border: 1px solid rgba(56, 178, 255, 1);
+      box-shadow: 0 0 20px rgba(56, 173, 255, 1);
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-scan">
+    <label for="image">
+        <img src="../../assets/111.png" alt="" class="image-show"> 
+        <input type="file" name="image" id="image" accept="image" hidden="hidden">
+    </label>
+    <div>点击图片框预览本地图片</div>
+  </div>
+  <script>
+    window.onload = function() {
+      var inputImage = document.querySelector('#image')
+      var scanImg = document.querySelector('.image-show')
+      inputImage.addEventListener('change', function(){
+        // new一个实例
+        var reader = new FileReader()
+        console.log(inputImage.files)
+        // 通过reader发起异步请求 读取文件内容
+        reader.readAsBinaryString(inputImage.files[0]) // 这里可以换成base64的
+        // 相当于FileReader的四个周期之一，后面我们详细介绍
+        reader.onload = function() {
+          console.log(this.result, '返回的图片的内容，二进制')
+          scanImg.src = this.result // 赋值给img的src属性
+        }
+
+
+
+        // reader.onload = function(){
+        //   console.log("加载成功")
+        // }
+        // reader.onloadstart = function(){
+        //   console.log("开始加载")
+        // }
+        // reader.onloadend= function(){
+        //   console.log("加载结束")
+        // }
+        // reader.onprogress = function(){
+        //   console.log("加载中", '是不是可以考虑加一个进度条君呢')
+        // }
+      })
+    }
+  </script>
+</body>
+</html>
