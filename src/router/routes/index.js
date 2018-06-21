@@ -31,6 +31,14 @@ export default [
         layout: true
       },
       component: () => import('../../views/file/reader.vue')
+    }, {
+      name: 'sass',
+      path: 'sass',
+      meta: {
+        title: 'sass',
+        layout: true
+      },
+      component: () => import('../../views/index/sass.vue')
     }]
   }
 ]
