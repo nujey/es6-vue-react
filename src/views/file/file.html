@@ -15,15 +15,18 @@
       color: #fff;
     }
     .image-scan {
-      text-align: center;
+      text-align: center; /* 预览图片的居中 */
     }
-    .image-show {
+    .image-show /*图片的显示*/{
       width: 160px;
       height: 200px;
       display: inline-block;
       border: 1px solid rgba(56, 178, 255, 1);
       box-shadow: 0 0 20px rgba(56, 173, 255, 1);
       margin: 30px 0;
+    }
+    .select {
+      font-family: 'simsun'
     }
   </style>
 </head>
@@ -34,6 +37,12 @@
         <input type="file" name="image" id="image" accept="image" hidden="hidden">
     </label>
     <div>点击图片框预览本地图片</div>
+
+    <select name="" id="" class="select">
+      <option value="1">啦啦啦bsafas</option>
+      <option value="2">啦啦啦</option>
+      <option value="3">abcdefg</option>
+    </select>
   </div>
   <script>
     window.onload = function() {
