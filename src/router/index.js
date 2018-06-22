@@ -9,7 +9,12 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.query.title || to.meta.title || '随缘'
+  console.log(to)
+  if (to.meta.layout) {
+    document.title = to.query.title || to.meta.title || '随缘'
+  } else {
+    to.name = '404'
+  }
   next()
 })
 

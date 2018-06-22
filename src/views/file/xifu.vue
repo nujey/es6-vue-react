@@ -14,6 +14,19 @@
     </div>
   </div>
 </template>
+<script>
+  export default ({
+    data() {
+      return {
+        text: 'typescript'
+      }
+    },
+    created() {
+      console.log(this.$router)
+    }
+  })
+</script>
+
 <style scoped>
 .father {
   display: flex;
