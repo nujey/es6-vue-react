@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-link :to="{name: 'xifu', query: {id: '1'}}">xifu</router-link>
+    <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
     <transition :name="transitionName">
       <router-view></router-view>
     </transition>
@@ -16,7 +16,8 @@ export default {
   data() {
     return {
       text: '11112222',
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      xifuMSg: 'xifu'
     }
   },
   watch: {
@@ -44,9 +45,11 @@ export default {
 
     this.handleUpdateDog({name: '我是辅助函数定义的'})
 
-
     //getters
     // console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
+    this.$nextTick().then((msg) => {
+      console.log(msg)
+    })
   },
   methods: {
     ...mapMutations({
