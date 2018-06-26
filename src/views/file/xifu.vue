@@ -12,17 +12,46 @@
         <p>1</p>
       </div>
     </div>
+    <div>
+      <p ref="myWidth" v-show="status">{{text}}</p>
+      <!-- <span>{{testMsg}}</span> -->
+      <button @click="handleNext">获取元素高度</button>
+      <hr/>
+      <span>{{name}}</span>
+      <span>{{age}}</span>
+      <span>{{info.sex}}</span>
+      <span>{{info.content}}</span>
+    </div>
   </div>
 </template>
 <script>
+  import Vue from 'vue'
   export default ({
     data() {
       return {
-        text: 'typescript'
+        text: 'typescript',
+        status: false,
+        name: '张锋',
+        age: '2',
+        info: {
+          content: '描述文字'
+        }
       }
     },
     created() {
-      console.log(this.$router)
+      // this.sex = '男'
+      
+      console.log(this.$data)
+      this.newProperty = 'hi'
+    },
+    methods: {
+      handleNext: function() {
+        this.$set(this.info, "sex", '男')
+        this.status = true
+        this.$nextTick().then(() => {
+          this.text = this.$refs.myWidth.offsetWidth
+        })
+      }
     }
   })
 </script>
