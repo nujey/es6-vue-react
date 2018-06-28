@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
-    <transition :name="transitionName">
-      <router-view></router-view>
-    </transition>
+    <!-- <transition :name="transitionName"> -->
+    <router-view></router-view>
+    <!-- </transition> -->
   </div>
 </template>
 
