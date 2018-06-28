@@ -2,8 +2,11 @@
   <div>
     <div class="header-wrap">
       <span class="extend-icon"></span><span>返回</span>
-      <h1>I Love U</h1>
+      <h1 @click="showStatus = !showStatus">I Love U</h1>
     </div>
+    <transition name="fade">
+      <div v-if="showStatus">我就是测试一下过渡效果</div>
+    </transition>
     <div class="conment-wrap">
       <div class="father">
         <p>2</p>
@@ -29,6 +32,7 @@
   export default ({
     data() {
       return {
+        showStatus: true,
         text: 'typescript',
         status: false,
         name: '张锋',
@@ -80,9 +84,6 @@ p {
   box-sizing: border-box;
   box-shadow: 0 1px 0 0 #999999;
 }
-.header-wrap>span {
-
-}
 .header-wrap>h1 {
   position: absolute;
   top: 0;
@@ -97,5 +98,13 @@ p {
    display: flex;
    height: 40px;
    align-items: center;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: .8s;
+  opacity: 0;
+}
+.fade-enter .fade-enter-to{
+  transition: 1s;
+  opacity: 1;
 }
 </style>
