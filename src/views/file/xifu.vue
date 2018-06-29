@@ -17,7 +17,6 @@
     </div>
     <div>
       <p ref="myWidth" v-show="status">{{text}}</p>
-      <!-- <span>{{testMsg}}</span> -->
       <button @click="handleNext">获取元素高度</button>
       <hr/>
       <span>{{name}}</span>
@@ -29,6 +28,15 @@
 </template>
 <script>
   import Vue from 'vue'
+  function * generatorTest() {
+    let yieldArray = [1, 2, 3, 4, 5]
+    for(let i = 0; i < yieldArray.length; i++) {
+      if (i === 2) {
+        yield console.log(i)
+      }
+    }
+    return yieldArray
+  }
   export default ({
     data() {
       return {
@@ -43,10 +51,8 @@
       }
     },
     created() {
-      // this.sex = '男'
-      
-      console.log(this.$data)
       this.newProperty = 'hi'
+      let hello = generatorTest().next()
     },
     methods: {
       handleNext: function() {
