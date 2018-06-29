@@ -24,6 +24,9 @@
       <span>{{info.sex}}</span>
       <span>{{info.content}}</span>
     </div>
+    <div class="search">
+      <span class="search-icon"></span>
+    </div>
   </div>
 </template>
 <script>
@@ -40,6 +43,7 @@
   export default ({
     data() {
       return {
+        calendarBar: '',
         showStatus: true,
         text: 'typescript',
         status: false,
@@ -112,5 +116,51 @@ p {
 .fade-enter .fade-enter-to{
   transition: 1s;
   opacity: 1;
+}
+
+/* 搜索动画 */
+.search {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, .6);
+}
+.search-icon {
+  width: 100px;
+  height: 103px;
+  display: inline-block;
+  position: absolute;
+  left: 150px;
+  top: 200px;
+  background: url("../../assets/fangdajing.png") no-repeat 0 0;
+  background-size: contain;
+  animation: animateFirst 3s infinite;
+}
+@keyframes animateFirst {
+  0% {
+    left: 150px;
+    top: 198px
+  }
+  20% {
+    left: 148px;
+    top: 198px
+  }
+  40% {
+    left: 150px;
+    top: 200px
+  }
+  60% {
+    left: 153px;
+    top: 202px
+  }
+  80% {
+    left: 152px;
+    top: 202px
+  }
+  100% {
+    left: 150px;
+    top: 198px
+  }
 }
 </style>
