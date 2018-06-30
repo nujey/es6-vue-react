@@ -50,13 +50,18 @@
         name: '张锋',
         age: '2',
         info: {
-          content: '描述文字'
+          content: '描述文字',
+          ['a']: 'aaaaa'
         }
       }
     },
     created() {
       this.newProperty = 'hi'
-      let hello = generatorTest().next()
+      // let hello = generatorTest().next()
+      const keyA = { cc: 1 }
+      // this.info['v'] = 123
+      this.$set(this.info, ['v'], 121)
+      console.log(this.info, 222)
     },
     methods: {
       handleNext: function() {
