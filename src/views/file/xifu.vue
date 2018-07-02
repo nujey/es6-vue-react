@@ -7,14 +7,7 @@
     <transition name="fade">
       <div v-if="showStatus">我就是测试一下过渡效果</div>
     </transition>
-    <div class="conment-wrap">
-      <div class="father">
-        <p>2</p>
-        <p>4</p>
-        <p>3</p>
-        <p>1</p>
-      </div>
-    </div>
+    <xifu-child ref="childref"></xifu-child>
     <div>
       <p ref="myWidth" v-show="status">{{text}}</p>
       <button @click="handleNext">获取元素高度</button>
@@ -30,7 +23,8 @@
   </div>
 </template>
 <script>
-  import Vue from 'vue'
+  import xifuChild from './reader.vue'
+
   function * generatorTest() {
     let yieldArray = [1, 2, 3, 4, 5]
     for(let i = 0; i < yieldArray.length; i++) {
@@ -55,13 +49,19 @@
         }
       }
     },
+    components: {
+      xifuChild
+    },
     created() {
       this.newProperty = 'hi'
       // let hello = generatorTest().next()
       const keyA = { cc: 1 }
       // this.info['v'] = 123
       this.$set(this.info, ['v'], 121)
-      console.log(this.info, 222)
+      // console.log(this.info, 222)
+    },
+    mounted() {
+      this.$refs.childref.handleConsoleRef()
     },
     methods: {
       handleNext: function() {
