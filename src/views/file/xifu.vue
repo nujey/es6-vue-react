@@ -9,8 +9,9 @@
     </transition>
 
 
-    <hild ref="childref"></hild>
-
+    <div class="scoped_father">
+      <hild ref="childref"></hild>
+    </div>
 
     <div>
       <p ref="myWidth" v-show="status">{{text}}</p>
@@ -87,7 +88,6 @@
   /* justify-content: flex-start; */
   align-items: center;
 }
-
 p {
   width: 30px;
   height: 30px;
@@ -126,7 +126,9 @@ p {
   transition: 1s;
   opacity: 1;
 }
-
+.scoped_father >>> .scoped_child {
+  color: #f00
+}
 /* 搜索动画 */
 .search {
   position: absolute;
