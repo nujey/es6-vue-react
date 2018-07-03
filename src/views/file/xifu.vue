@@ -129,6 +129,9 @@ p {
 .scoped_father >>> .scoped_child {
   color: #f00
 }
+.scoped_father /deep/ .scoped_child {
+  color: #f00
+}
 /* 搜索动画 */
 .search {
   position: absolute;
