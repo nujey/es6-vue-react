@@ -8,6 +8,7 @@ export default {
   methods: {
     handleConsoleRef: function () {
       console.log('ref is successful of child')
+      console.log(this)
     }
   }
 }
