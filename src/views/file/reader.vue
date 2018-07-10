@@ -3,7 +3,7 @@
     <span class="scoped_child">the refs of child test-reader</span>
   </div>
 </template>
-<script>
+<script type="text/bable">
 export default {
   methods: {
     handleConsoleRef: function () {
