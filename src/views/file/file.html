@@ -51,15 +51,33 @@
       inputImage.addEventListener('change', function(){
         // new一个实例
         var reader = new FileReader()
-        console.log(inputImage.files)
+        console.log(inputImage.files[0])
         // 通过reader发起异步请求 读取文件内容
-        reader.readAsBinaryString(inputImage.files[0]) // 这里可以换成base64的
+        reader.readAsDataURL(inputImage.files[0]) // 这里可以换成base64的
         // 相当于FileReader的四个周期之一，后面我们详细介绍
         reader.onload = function() {
-          console.log(this.result, '返回的图片的内容，二进制')
+          console.log(this)
           scanImg.src = this.result // 赋值给img的src属性
         }
       })
+    }
+    function reader() {
+      const len = inputImage.files.length
+      if (inputImage.files.length > 9) {
+        return false
+      }
+      for(let i = 0; i < len; i++) {
+        // 一张张获取
+        const file = inputImage.files[i]
+        let fileReader = new FileReader()
+        // 一张张转换
+        fileReader.readAsDataURL(file)
+        fileReader.onload = function() {
+          // 上传到tfs
+          that.houseInvestList.imgs.push(this.result)
+        }
+      }
+      console.log(that.houseInvestList.imgs)
     }
   </script>
 </body>
