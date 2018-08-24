@@ -45,19 +45,27 @@ export default {
 
     this.handleUpdateDog({name: '我是辅助函数定义的'})
 
+    this.$store.dispatch('upDate')
     //getters
     // console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
     this.$nextTick().then((msg) => {
       console.log(msg)
     })
+    this.a()
   },
   methods: {
     ...mapMutations({
       changeDogAge: 'DOG'
     }),
+    changeDogAge() {
+
+    },
     ...mapActions({
       handleUpdateDog: 'updateDog'
-    })
+    }),
+    a() {
+
+    }
   }
 }
 </script>
