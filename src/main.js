@@ -4,7 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import * as moud from './views/ecma6/module'
 
+console.log(moud)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

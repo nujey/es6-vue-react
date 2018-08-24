@@ -10,12 +10,14 @@
 <script>
 // import iterator from './components/HelloWorld'
 import { mapMutations, mapActions } from 'vuex'
+import { appTest1, appTest2 } from './views/ecma6/module.js'
+
+import {default as de} from './views/ecma6/default.js' // === import de from './views/ecma6/default.js'
 
 export default {
   name: 'App',
   data() {
     return {
-      text: '11112222',
       transitionName: 'slide-left',
       xifuMSg: 'xifu'
     }
@@ -33,6 +35,8 @@ export default {
     }
   },
   created() {
+    console.log(appTest1, 11111)
+    de()
     // this.$router.replace({
     //   name: 'face-check'
     // })
