@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button v-test-direct="'add'"></button>
     <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
     <!-- <transition :name="transitionName"> -->
     <router-view></router-view>
@@ -10,12 +11,14 @@
 <script>
 // import iterator from './components/HelloWorld'
 import { mapMutations, mapActions } from 'vuex'
+import { appTest1, appTest2 } from './views/ecma6/module.js'
+
+import {default as de} from './views/ecma6/default.js' // === import de from './views/ecma6/default.js'
 
 export default {
   name: 'App',
   data() {
     return {
-      text: '11112222',
       transitionName: 'slide-left',
       xifuMSg: 'xifu'
     }
@@ -33,6 +36,8 @@ export default {
     }
   },
   created() {
+    console.log(appTest1, 11111)
+    de()
     // this.$router.replace({
     //   name: 'face-check'
     // })
@@ -51,21 +56,16 @@ export default {
     this.$nextTick().then((msg) => {
       console.log(msg)
     })
-    this.a()
+    this.hanldeUpDateCat({name: '添加', code: '10010'})
   },
   methods: {
     ...mapMutations({
       changeDogAge: 'DOG'
     }),
-    changeDogAge() {
-
-    },
     ...mapActions({
-      handleUpdateDog: 'updateDog'
+      handleUpdateDog: 'updateDog',
+      hanldeUpDateCat: 'upDateCat'
     }),
-    a() {
-
-    }
   }
 }
 </script>
