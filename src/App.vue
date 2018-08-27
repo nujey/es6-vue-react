@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button v-test-direct="'add'"></button>
     <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
     <!-- <transition :name="transitionName"> -->
     <router-view></router-view>
@@ -55,21 +56,16 @@ export default {
     this.$nextTick().then((msg) => {
       console.log(msg)
     })
-    this.a()
+    this.hanldeUpDateCat({name: '添加', code: '10010'})
   },
   methods: {
     ...mapMutations({
       changeDogAge: 'DOG'
     }),
-    changeDogAge() {
-
-    },
     ...mapActions({
-      handleUpdateDog: 'updateDog'
+      handleUpdateDog: 'updateDog',
+      hanldeUpDateCat: 'upDateCat'
     }),
-    a() {
-
-    }
   }
 }
 </script>

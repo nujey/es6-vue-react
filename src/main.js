@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './directives'
 import store from './store'
 import * as moud from './views/ecma6/module'
 
