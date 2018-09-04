@@ -39,6 +39,14 @@ export default [
         layout: true
       },
       component: () => import('../../views/index/sass.vue')
+    }, {
+      name: 'test-store',
+      path: 'test-store',
+      meta: {
+        title: 'test-store',
+        layout: true
+      },
+      component: () => import('../../views/file/test-store.vue')
     }]
   }
 ]

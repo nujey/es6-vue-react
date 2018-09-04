@@ -36,8 +36,6 @@ export default {
     }
   },
   created() {
-    console.log(appTest1, 11111)
-    de()
     // this.$router.replace({
     //   name: 'face-check'
     // })
