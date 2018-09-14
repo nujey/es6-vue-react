@@ -5,9 +5,13 @@ import App from './App'
 import router from './router'
 import './directives'
 import store from './store'
-import * as moud from './views/ecma6/module'
 
-console.log(moud)
+import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
+import nujeyVc from 'nujey-vc/src'
+// const nujeyVc = require('nujey-vc')
+Vue.use(nujeyVc)
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

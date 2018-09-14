@@ -2,6 +2,7 @@
   <div id="app">
     <button v-test-direct="'add'"></button>
     <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
+    <router-link :to="{name: 'page'}">nujey-分页</router-link>
     <!-- <transition :name="transitionName"> -->
     <router-view></router-view>
     <!-- </transition> -->
@@ -11,9 +12,8 @@
 <script>
 // import iterator from './components/HelloWorld'
 import { mapMutations, mapActions } from 'vuex'
-import { appTest1, appTest2 } from './views/ecma6/module.js'
 
-import {default as de} from './views/ecma6/default.js' // === import de from './views/ecma6/default.js'
+// import {default as de} from './views/ecma6/default.js' // === import de from './views/ecma6/default.js'
 
 export default {
   name: 'App',
