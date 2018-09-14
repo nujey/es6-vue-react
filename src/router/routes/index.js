@@ -1,4 +1,5 @@
-
+import { nujeyDemos } from './nujey-demos.js'
+console.log(...nujeyDemos)
 export default [
   {
     path: '/',
@@ -8,18 +9,10 @@ export default [
     },
     component: () => import('../../views/file/index.vue'),
     children: [{
-      name: 'face-check',
-      path: 'face-check',
+      name: 'raber',
+      path: 'raber',
       meta: {
-        title: '人脸认证',
-        layout: true
-      },
-      component: () => import('../../views/file/face-check.vue')
-    }, {
-      name: 'xifu',
-      path: 'xifu',
-      meta: {
-        title: '媳妇flex',
+        title: 'raberflex',
         layout: true
       },
       component: () => import('../../views/file/xifu.vue')
@@ -48,5 +41,6 @@ export default [
       },
       component: () => import('../../views/file/test-store.vue')
     }]
-  }
+  },
+  ...nujeyDemos
 ]
