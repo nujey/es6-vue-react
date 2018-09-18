@@ -8,9 +8,9 @@ import store from './store'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
-import nujeyVc from 'nujey-vc/src'
-// const nujeyVc = require('nujey-vc')
-Vue.use(nujeyVc)
+import nujeyCp from 'nujey-cp'
+
+Vue.use(nujeyCp)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
