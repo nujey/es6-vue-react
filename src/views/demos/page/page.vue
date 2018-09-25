@@ -5,15 +5,16 @@
               :currentPage="pageInfo.currentPage"
               @on-change="handleChange"></nujey-el-page>
     <el-button type="primary" @click="handleexport">导出</el-button>
-    <el-table :data="list" border id="out-table">
-      <el-table-column prop="id" label="编号"></el-table-column>
-      <el-table-column prop="name" label="姓名"></el-table-column>
+    <el-table :data="list2" border id="out-table">
+      <el-table-column prop="编号" label="编号"></el-table-column>
+      <el-table-column prop="姓名" label="姓名"></el-table-column>
       <el-table-column prop="age" label="年龄"></el-table-column>
       <el-table-column prop="desc" label="描述"></el-table-column>
     </el-table>
 
     <!-- <el-button type="primary" @click="handleImport">导入</el-button> -->
-    <input type="file" @change="handleImport">
+    <!-- <input type="file" @change="handleImport(this)"> -->
+    <input ref="fileUpload" type="file" @change="handleImport"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
   </div>
 </template>
 
@@ -34,22 +35,9 @@ export default {
         name: '第一名',
         age: 10,
         desc: '622253562762536382'
-      }, {
-        id: 2,
-        name: '第二名',
-        age: 13,
-        desc: '622253562762536382'
-      }, {
-        id: 3,
-        name: '第三名',
-        age: 16,
-        desc: '622253562762536382'
-      }, {
-        id: 4,
-        name: '第四名',
-        age: 18,
-        desc: '622253562762536382'
       }],
+      xlsindex: 2,
+      list2: [],
       arr: [{id: 1, name: '1'}, {id: 2, name: '1'}, {id: 3, name: '2'}, {id: 4, name: '3'}, {id: 5, name: '3'}, {id: 5, name: '4'}]
     }
   },
@@ -78,8 +66,58 @@ export default {
     handleexport() {
       this.handleExcel()
     },
-    handleImport(event) {
-      console.log(event.files[0])
+    handleImport(obj) {
+      // console.log(obj)
+      const that = this
+      const fileUpload = this.$refs.fileUpload
+      const fileCon = this.$refs.fileUpload.files[0]
+      let rABS = false
+
+      FileReader.prototype.readAsBinaryString = function(f) {
+        let binary = ''
+        let wb
+        let reader = new FileReader()
+        reader.onprogress = function() {
+          console.log('正在上传')
+        }
+        reader.onload = function(e) {
+          try {
+            let bytes = new Uint8Array(reader.result)
+            let length = bytes.byteLength
+            for(var i = 0; i < length; i++) {
+              binary += String.fromCharCode(bytes[i]);
+            }
+            if(rABS) {
+              wb = XLSX.read(btoa(fixdata(binary)), {//手动转化
+                type: 'base64'
+              });
+            } else {
+              wb = XLSX.read(binary, {
+                type: 'binary'
+              });
+            }
+          } catch(e) {
+            console.log('文件类型不正确')
+            return
+          }
+          var fromTo = '';
+          for (var sheet in wb.Sheets) {
+            if (wb.Sheets.hasOwnProperty(sheet) && sheet.indexOf(that.xlsindex) !== -1) {
+              fromTo = wb.Sheets[sheet]['!ref'];
+              that.list2 = that.list2.concat(XLSX.utils.sheet_to_json(wb.Sheets[sheet]));
+            }
+          }
+          console.log(that.list2);
+          // that.list2 = that.list2.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+        }
+        reader.readAsArrayBuffer(f);
+      }
+      let reader = new FileReader()
+      if (rABS) {
+        reader.readAsArrayBuffer(fileCon)
+      } else {
+        reader.readAsBinaryString(fileCon)
+      }
     }
   }
 }
