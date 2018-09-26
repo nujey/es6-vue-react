@@ -3,7 +3,6 @@
     <button v-test-direct="'add'"></button>
     <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
     <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
-    <router-link tag="span" to="page">我我我我是span</router-link>
     <!-- <transition :name="transitionName"> -->
     <router-view></router-view>
     <!-- </transition> -->

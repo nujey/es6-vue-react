@@ -4,8 +4,13 @@
               :pageSize="pageInfo.pageSize"
               :currentPage="pageInfo.currentPage"
               @on-change="handleChange"></nujey-el-page>
-    <el-button type="primary" @click="handleexport">导出</el-button>
-    <el-table :data="list2" border id="out-table">
+    <!-- <el-button type="primary" @click="handleexport">导出</el-button> -->
+    <!--  文件导出组件测试 -->
+    <xlsx-export :exportName="'export-cp'"
+                 :exportTag="'out-table'"
+                 @on-export="handleExport"></xlsx-export>
+
+    <el-table :data="list" border id="out-table">
       <el-table-column prop="编号" label="编号"></el-table-column>
       <el-table-column prop="姓名" label="姓名"></el-table-column>
       <el-table-column prop="age" label="年龄"></el-table-column>
@@ -19,8 +24,7 @@
 </template>
 
 <script>
-import fileSaver from 'file-saver'
-import XLSX from 'xlsx'
+
 
 export default {
   data() {
@@ -63,8 +67,9 @@ export default {
       fileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'test.xlsx')
       return wbout
     },
-    handleexport() {
-      this.handleExcel()
+    handleExport(info) {
+      console.log(info.msg)
+      // this.handleExcel()
     },
     handleImport(obj) {
       // console.log(obj)
