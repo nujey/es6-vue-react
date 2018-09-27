@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <button v-test-direct="'add'"></button>
-    <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
-    <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
-    <!-- <transition :name="transitionName"> -->
+    <router-link :to="{name: 'raber', query: {id: '1'}}">{{xifuMSg}}</router-link></br>
+    <router-link :to="{name: 'page'}" replace>nujey-分页</router-link></br>
+    <router-link :to="{name: 'file-reader'}">nujey-文件上传</router-link></br>
+    <router-link :to="{name: 'sass'}" replace>nujey-sass</router-link></br>
+    <router-link :to="{name: 'test-store'}" replace>nujey-test-store</router-link></br>
+    
     <router-view></router-view>
-    <!-- </transition> -->
   </div>
 </template>
 
