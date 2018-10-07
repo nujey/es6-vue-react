@@ -1,6 +1,7 @@
 <template>
   <div>
     <span class="scoped_child">the refs of child test-reader</span>
+    <send-msg></send-msg>
   </div>
 </template>
 <script type="text/bable">

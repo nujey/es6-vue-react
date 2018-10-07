@@ -35,8 +35,7 @@ export default [
         title: 'filereader',
         layout: true
       },
-      // component: (resolve) => require(['../../views/file/reader.vue'], resolve)
-      component: _import_one('file/reader')
+      component: (resolve) => require(['../../views/file/reader.vue'], resolve)
     }, {
       name: 'sass',
       path: 'sass',
