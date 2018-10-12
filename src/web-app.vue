@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="web-app">
+    111111
     <button v-test-direct="'add'"></button>
     <div class="flex">
-      <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
-      <router-link :to="{name: 'file-reader'}">nujey-文件上传</router-link>
-      <router-link :to="{name: 'sass'}" replace>nujey-sass</router-link>
+      <router-link :to="{name: 'raber', query: {id: '1'}}">{{xifuMSg}}</router-link>
+      <router-link :to="{name: 'test-store'}" replace>nujey-test-store</router-link>
     </div>
     <router-view></router-view>
   </div>
@@ -17,7 +17,7 @@ import { mapMutations, mapActions } from 'vuex'
 // import {default as de} from './views/ecma6/default.js' // === import de from './views/ecma6/default.js'
 
 export default {
-  name: 'App',
+  name: 'webApp',
   data() {
     return {
       transitionName: 'slide-left',
