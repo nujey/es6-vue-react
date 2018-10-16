@@ -1,11 +1,14 @@
 <template>
   <div id="app">
     <button v-test-direct="'add'"></button>
-    <router-link :to="{name: 'xifu', query: {id: '1'}}">{{xifuMSg}}</router-link>
-    <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
-    <!-- <transition :name="transitionName"> -->
+    <div class="flex">
+      <router-link :to="{name: 'raber', query: {id: '1'}}">{{xifuMSg}}</router-link>
+      <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
+      <router-link :to="{name: 'file-reader'}">nujey-文件上传</router-link>
+      <router-link :to="{name: 'sass'}" replace>nujey-sass</router-link>
+      <router-link :to="{name: 'test-store'}" replace>nujey-test-store</router-link>
+    </div>
     <router-view></router-view>
-    <!-- </transition> -->
   </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
   data() {
     return {
       transitionName: 'slide-left',
-      xifuMSg: 'xifu'
+      xifuMSg: 'raber'
     }
   },
   watch: {
@@ -80,6 +83,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column-reverse;
 }
 .slide-right-enter-active,
 .slide-right-leave-active,

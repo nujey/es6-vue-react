@@ -1,5 +1,17 @@
 import { nujeyDemos } from './nujey-demos.js'
-console.log(...nujeyDemos)
+// const _import = require('./import')
+const _import = (file) => {
+  return () => import(`../../views/${file}.vue`)
+}
+
+const _import_one = (file) => {
+  return (resolve) => require([`../../views/${file}.vue`], resolve)
+}
+
+// const _import_two = (file, groupName) => {
+//   return r => require.ensure([], r(require(`../../views/${file}.vue`)), groupName)
+// }
+
 export default [
   {
     path: '/',
@@ -7,7 +19,7 @@ export default [
       layout: true,
       title: '首页'
     },
-    component: () => import('../../views/file/index.vue'),
+    component: _import('file/index'),
     children: [{
       name: 'raber',
       path: 'raber',
@@ -15,7 +27,7 @@ export default [
         title: 'raberflex',
         layout: true
       },
-      component: () => import('../../views/file/xifu.vue')
+      component: () => import(/* webpackChunkName: "raber" */'../../views/file/xixi.vue')
     }, {
       name: 'file-reader',
       path: 'file-reader',
@@ -23,7 +35,7 @@ export default [
         title: 'filereader',
         layout: true
       },
-      component: () => import('../../views/file/reader.vue')
+      component: (resolve) => require(['../../views/file/reader.vue'], resolve)
     }, {
       name: 'sass',
       path: 'sass',
@@ -31,7 +43,8 @@ export default [
         title: 'sass',
         layout: true
       },
-      component: () => import('../../views/index/sass.vue')
+      // component: () => import('../../views/index/sass.vue')
+      component: r => require.ensure([], () => r(require('../../views/index/sass.vue')), 'sass-group')
     }, {
       name: 'test-store',
       path: 'test-store',
@@ -39,7 +52,8 @@ export default [
         title: 'test-store',
         layout: true
       },
-      component: () => import('../../views/file/test-store.vue')
+      // component: () => import('../../views/file/test-store.vue')
+      component: _import_one('file/test-store')
     }]
   },
   ...nujeyDemos
