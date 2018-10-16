@@ -73,7 +73,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      chunks: ['mainfest', 'vendor', 'app']
+      chunks: ['manifest', 'vendor', 'app']
     }),
     new HtmlWebpackPlugin({
       filename: config.build.webApp,
@@ -85,7 +85,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeAttributeQuotes: true
       },
       chunksSortMode: 'dependency',
-      chunks: ['mainfest','vendor', 'webApp']
+      chunks: ['manifest', 'vendor', 'webApp']
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -109,7 +109,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      chunks: ['vendor'],
       minChunks: Infinity
     }),
     // This instance extracts shared chunks from code splitted chunks and bundles them
