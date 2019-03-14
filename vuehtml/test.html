@@ -16,7 +16,17 @@
   <div id="app">
     <span :class="class1">{{testMessage}}</span>
   </div>
+  <div id="extend-test"></div>
   <script>
+    var Profile = Vue.extend({
+      template: "<p>测试一下{{test}}</p>",
+      data() {
+        return {
+          test: 'extend'
+        }
+      }
+    })
+    new Profile().$mount('#extend-test')
     var let = new Vue({
       el: '#app',
       data() {
