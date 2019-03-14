@@ -9,7 +9,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  // console.log(to)
   if (to.meta.layout) {
     document.title = to.query.title || to.meta.title || '随缘'
   } else {

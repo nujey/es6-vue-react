@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3>测试store页面-----不需要辅助函数</h3>
-
+    <h3>测试store页面-----不需要辅助函数</h3>、
   </div>
 </template>
 

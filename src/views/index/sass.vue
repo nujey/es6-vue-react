@@ -2,12 +2,33 @@
   <div>
     <h2 class="h1">sass练习路由页面1</h2>
     <h2 class="h2">sass练习路由页面2</h2>
-    <h2 class="h3">sass练习路由页面3</h2>
-    <h2 class="h4">sass练习路由页面4</h2>
-    <h2 class="h5">sass练习路由页面5</h2>
     <h4 class="test-extend">extend</h4>
+
+    <div id="extend-test"></div>
   </div>
 </template>
+<script>
+import Vue from 'vue'
+var Profile = Vue.extend({
+  template: '<p>{{extendTest}}</p>',
+  data() {
+    return {
+      extendTest: '我是一个extend构造的器'
+    }
+  },
+  created() {
+    console.log('extend')
+  }
+})
+new Profile().$mount("#extend-test")
+
+export default {
+  data() {
+    return {}
+  }
+}
+</script>
+
 <style lang="scss" scoped>
   $h-color: #f0f;
   @mixin rounde-radius($width, $height, $h-color, $border-color, $radius) {

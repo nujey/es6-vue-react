@@ -53,7 +53,7 @@ export default {
     //getters
     // console.log(this.$store.getters.filterDog) // getter过滤过 返回的值
     this.$nextTick().then((msg) => {
-      console.log(msg)
+      // console.log(msg)
     })
     this.hanldeUpDateCat({name: '添加', code: '10010'})
   },
