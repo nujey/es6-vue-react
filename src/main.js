@@ -7,6 +7,16 @@ import './components'
 import './directives'
 import store from './store'
 
+import * as filters from './filters'
+
+console.log(filters)
+console.log(Object.keys(filters))
+console.log(Object.values(filters))
+
+Object.keys(filters).forEach(item => {
+  Vue.filter(item, filters[item])
+})
+
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
 import nujeyCp from 'nujey-cp'

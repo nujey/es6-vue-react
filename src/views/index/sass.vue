@@ -3,28 +3,30 @@
     <h2 class="h1">sass练习路由页面1</h2>
     <h2 class="h2">sass练习路由页面2</h2>
     <h4 class="test-extend">extend</h4>
-
+    <div>22222{{testFilter | f1}}</div>
     <div id="extend-test"></div>
   </div>
 </template>
 <script>
-import Vue from 'vue'
-var Profile = Vue.extend({
-  template: '<p>{{extendTest}}</p>',
-  data() {
-    return {
-      extendTest: '我是一个extend构造的器'
-    }
-  },
-  created() {
-    console.log('extend')
-  }
-})
-new Profile().$mount("#extend-test")
+// import Vue from 'vue'
+// var Profile = Vue.extend({
+//   template: '<p>{{extendTest}}</p>',
+//   data() {
+//     return {
+//       extendTest: '我是一个extend构造的器'
+//     }
+//   },
+//   created() {
+//     console.log('extend')
+//   }
+// })
+// new Profile().$mount("#extend-test")
 
 export default {
   data() {
-    return {}
+    return {
+      testFilter: 1
+    }
   }
 }
 </script>
