@@ -24,3 +24,27 @@ Vue.directive('test-direct', testDirect)
 //   //   console.log(binding)
 //   // }
 // })
+Vue.directive('practice', {
+  // 只调用一次，指令第一次绑定到元素的时候调用
+  // 相当于可以进行一次性初始化设置
+  bind: function(el, binding, vnode) {
+    // 
+    console.log(1)
+  },
+  // 被绑定元素插入父节点的时候调用
+  inserted: function() {
+    console.log(2)
+  },
+  // 所在组件的VNode更新时调用
+  update: function() {
+    console.log(1)
+  },
+  // 组件的VNode及其子节点全部更新后调用
+  componentUpdated: function() {
+    console.log(4)
+  },
+  // 只调用一次 指令与元素解绑的时候调用
+  unbind: function() {
+    console.log(5)
+  }
+})
