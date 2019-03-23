@@ -9,10 +9,6 @@ import store from './store'
 
 import * as filters from './filters'
 
-console.log(filters)
-console.log(Object.keys(filters))
-console.log(Object.values(filters))
-
 Object.keys(filters).forEach(item => {
   Vue.filter(item, filters[item])
 })

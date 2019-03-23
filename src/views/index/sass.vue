@@ -1,10 +1,9 @@
 <template>
   <div>
     <h2 class="h1">sass练习路由页面1</h2>
-    <h2 class="h2">sass练习路由页面2</h2>
-    <h4 class="test-extend">extend</h4>
     <div>22222{{testFilter | f1}}</div>
     <div id="extend-test"></div>
+    <input type="text" placeholder="自动聚焦的自定义指令" v-focus:arg.foo="'text'">
   </div>
 </template>
 <script>
