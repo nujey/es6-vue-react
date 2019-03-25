@@ -3,7 +3,11 @@
     <h2 class="h1">sass练习路由页面1</h2>
     <div>22222{{testFilter | f1}}</div>
     <div id="extend-test"></div>
+    <!-- <input type="button"  value="按钮" v-focus:arg.bar="{ color: '#ff0', fontSize: '24px'}"/> -->
     <input type="text" placeholder="自动聚焦的自定义指令" v-focus:arg.foo="'text'">
+
+    <input type="button"  value="按钮" v-focus:arg.bar="{ color: '#f00', fontSize: '24'}"/>
+    <span v-focus:arg.bar="{ color: '#0f0', fontSize: '48'}">12</span>
   </div>
 </template>
 <script>

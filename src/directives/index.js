@@ -64,11 +64,24 @@ Vue.directive('practice', {
 
 Vue.directive('focus', {
   bind: function(el, binding, vnode) {
-    console.log(el, binding, vnode)
-    // el.focus()
+    // console.log(el, binding, vnode)
+    // el.style.fontSize = binding.value.fontSize
   },
-  inserted: function(el) {
+  inserted: function(el, binding) {
     el.focus()
+    el.style.color = binding.value.color
+    el.style.fontSize = binding.value.fontSize + 'px'
     el.placeholder = '测试一下默认值'
+  },
+  update: function(el, binding, oldValue) {
+    console.log(oldValue)
+    // el.style.fontSize = binding.value.fontSize
   }
+})
+
+
+// 当然 我们是可以支持简写的
+// 当我们的bind和update需要表现的形式相同的时候，我们可以直接使用函数
+Vue.directive('simple', function(el, binding){
+  console.log(el, binding)
 })
