@@ -8,28 +8,25 @@
 
     <input type="button"  value="按钮" v-focus:arg.bar="{ color: '#f00', fontSize: '24'}"/>
     <span v-focus:arg.bar="{ color: '#0f0', fontSize: '48'}">12</span>
+    <p @click="handleApp">添加</p>
+    <span v-for="(item, index) in list" :key="index"> {{item.name}}</span>
   </div>
 </template>
 <script>
-// import Vue from 'vue'
-// var Profile = Vue.extend({
-//   template: '<p>{{extendTest}}</p>',
-//   data() {
-//     return {
-//       extendTest: '我是一个extend构造的器'
-//     }
-//   },
-//   created() {
-//     console.log('extend')
-//   }
-// })
-// new Profile().$mount("#extend-test")
+import { mixinDemo } from '../../mixins/mixinDemo.js'
 
 export default {
+  mixins: [mixinDemo],
   data() {
     return {
-      testFilter: 1
+      testFilter: 1,
+      list: [1]
     }
+  },
+  methods: {
+    // handleApp: function() {
+    //   console.log(this.list)
+    // }
   }
 }
 </script>

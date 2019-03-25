@@ -21,7 +21,10 @@ export default {
   data() {
     return {
       transitionName: 'slide-left',
-      xifuMSg: 'raber'
+      xifuMSg: 'raber',
+      detail: {
+        list: []
+      }
     }
   },
   watch: {
