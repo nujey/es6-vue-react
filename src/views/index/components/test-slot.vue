@@ -8,7 +8,9 @@
 
 <script>
 export default {
-  
+  created() {
+    // console.log(this.$slots)
+  }
 }
 </script>
 

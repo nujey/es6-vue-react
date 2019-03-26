@@ -10,6 +10,7 @@
     <hr/>
     <!-- <render-demo :level="1"></render-demo> -->
     <render-two v-for="item in titleList" :item="item"></render-two>
+    <func-render :item="1"></func-render>
   </div>
 </template>
 
@@ -17,6 +18,7 @@
 import testRender from './components/test-render.vue'
 import testSlot from './components/test-slot'
 import renderTwo from './components/render2'
+import funcRender from './components/func-render'
 
 export default {
   customOption: 'foo',
@@ -27,8 +29,8 @@ export default {
     }
   },
   created() {
-    console.log(this.$parent)
+    // console.log(this.$parent)
   },
-  components: { testRender, testSlot, renderTwo }
+  components: { testRender, testSlot, renderTwo, funcRender }
 }
 </script>

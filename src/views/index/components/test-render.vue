@@ -41,9 +41,9 @@
           }
         },
         nativeOn: {
-          // click: this.handleClick
+          click: this.handleClick
         }
-      }, this.$slots.default))
+      }))
       return createElement(
         'h' + this.level,
         {
@@ -60,7 +60,7 @@
     },
     methods: {
       handleClick: function() {
-        console.log('nativeOn')
+        // console.log(this.$slots)
       }
     }
   }
