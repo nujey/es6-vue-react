@@ -54,6 +54,15 @@ export default [
       },
       // component: () => import('../../views/file/test-store.vue')
       component: _import_one('file/test-store')
+    }, {
+      name: 'render-demo',
+      path: 'render-demo',
+      meta: { },
+      beforeEnter: (to, from, next) => {
+        console.log(to, from)
+        next()
+      },
+      component: () => import("../../views/index/render.vue")
     }]
   },
   ...nujeyDemos
