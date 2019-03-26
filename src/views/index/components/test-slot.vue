@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div>111</div>
-    <slot>我是一个slot</slot>
+    <slot name="header">我是一个头部slot</slot>
+     <div></div>
+     <slot name="footer">我是默认的一个底部slot</slot>
   </div>
 </template>
 
