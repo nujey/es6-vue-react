@@ -59,7 +59,7 @@ export default [
       path: 'render-demo',
       meta: { },
       beforeEnter: (to, from, next) => {
-        console.log(to, from)
+        // console.log(to, from)
         next()
       },
       component: () => import("../../views/index/render.vue")

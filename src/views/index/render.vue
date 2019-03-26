@@ -2,29 +2,35 @@
   <div>
     <h3 style="text-align: center;">render函数与JSX</h3>
     <div id="test-render">
-      <!-- <test-render v-for="item in titleList" :level="item"></test-render> -->
+      <test-render v-for="item in titleList" :level="item"></test-render>
     </div>
-    <test-slot>
+    <!-- <test-slot>
       <p>测试一下</p>
-    </test-slot>
+    </test-slot> -->
+    <hr/>
+    <!-- <render-demo :level="1"></render-demo> -->
+    <render-two v-for="item in titleList" :item="item"></render-two>
+    <func-render :item="1"></func-render>
   </div>
 </template>
 
 <script>
 import testRender from './components/test-render.vue'
 import testSlot from './components/test-slot'
+import renderTwo from './components/render2'
+import funcRender from './components/func-render'
 
 export default {
   customOption: 'foo',
   data() {
     return {
       title: '测试的title',
-      titleList: [1, 2, 3, 4]
+      titleList: [1, 2]
     }
   },
   created() {
-    console.log(this.$parent)
+    // console.log(this.$parent)
   },
-  components: { testRender, testSlot }
+  components: { testRender, testSlot, renderTwo, funcRender }
 }
 </script>
