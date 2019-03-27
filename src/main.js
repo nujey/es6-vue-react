@@ -6,6 +6,7 @@ import router from './router'
 import './components'
 import './directives'
 import store from './store'
+import './plugins'
 
 import * as filters from './filters'
 
