@@ -44,6 +44,8 @@
           click: this.handleClick
         }
       }))
+      console.log(this.$msg)
+      var header = this.$slots.header
       return createElement(
         'h' + this.level,
         {
@@ -52,7 +54,7 @@
             falseClass: false
           },
         },
-        children
+        children.concat([], createElement('div', header))
       )
     },
     props: {

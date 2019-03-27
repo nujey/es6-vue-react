@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import store from '../store'
-import { testDirect } from './test-direct'
+import { testDirect, toast } from './test-direct'
 
 Vue.directive('test-direct', testDirect)
+Vue.directive('toast', toast)
 // Vue.directive('test', {
 //   bind: function() {
 //     console.log(store)

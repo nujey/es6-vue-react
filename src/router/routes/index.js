@@ -63,6 +63,10 @@ export default [
         next()
       },
       component: () => import("../../views/index/render.vue")
+    }, {
+      name: 'plugin',
+      path: 'plugin',
+      component: () => import("../../views/index/plugin.vue")
     }]
   },
   ...nujeyDemos

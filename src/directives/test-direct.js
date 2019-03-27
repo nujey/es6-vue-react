@@ -10,8 +10,24 @@ export const testDirect = {
     }
   }
 }
-export const testAdd = {
-
+let options = {}
+export const toast = {
+  bind: (el, binding) => {
+    // console.log(binding)
+    options.direction = binding.arg
+  },
+  inserted: (el, binding) => {
+    options.tips = binding.value ? binding.value : '默认toast'
+    const DIV = document.createElement('div')
+    DIV.innerHTML = options.tips
+    DIV.style.position = 'absolute'
+    DIV.style.left = 100 + 'px'
+    DIV.style[options.direction] = 100 + 'px'
+    document.querySelector('body').appendChild(DIV)
+  },
+  componentUpdated: (oldVnode) => {
+    console.log(oldVnode)
+  }
 }
 
 export const testDelete = {
