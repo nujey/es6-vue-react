@@ -44,7 +44,7 @@
           click: this.handleClick
         }
       }))
-      console.log(this.$slots)
+      console.log(this.$msg)
       var header = this.$slots.header
       return createElement(
         'h' + this.level,
