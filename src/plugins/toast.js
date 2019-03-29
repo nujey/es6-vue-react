@@ -1,18 +1,17 @@
 var Toast = {}
 
-Toast.install = function(Vue, options = {}) {
+Toast.install = function(Vue) {
   // Vue.prototype.$msg = 'Hello World'
-  options.duration = 2000
-  options.defaultType = 'bottom'
 
-  Vue.prototype.$toast = (tips, type) => {
-    if (type) {
-      options.defaultType = type
+  Vue.prototype.$toast = (tips, options = { type: 'center', duration: 2000 }) => {
+    console.log(options)
+    if (options) {
+      options.defaultType = options.type
     }
     if (document.getElementsByClassName('vue-toast').length) return
 
     let toastTpl = Vue.extend({
-      template: '<div class="vue-toast toast-' + type + '">'+ tips +'</div>'
+      template: '<div class="vue-toast toast-' + options.type + '">'+ tips +'</div>'
     })
     let tpl = new toastTpl().$mount().$el;
     // console.log(tpl.offsetWidth, tpl.clientWidth)
@@ -21,7 +20,7 @@ Toast.install = function(Vue, options = {}) {
 
     setTimeout(function() {
       document.body.removeChild(tpl)
-    }, 2000)
+    }, options.duration)
   }
   // 用来展示在不同的位置
   ['bottom', 'top', 'center'].forEach(type => {

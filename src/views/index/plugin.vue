@@ -6,12 +6,41 @@
 import Vue from 'vue'
 
 export default {
+  data() {
+    return {
+      arr1: [{id: 1, age: 20}],
+      arr2: [{id: 2, age: 21}]
+    }
+  },
   created() {
-    console.log(Vue.pluginGlobalProps)
+
+    let params = {
+      name: '张小鹿',
+      title: 20,
+      type: 'type1'
+    }
+    const { type, ...other } = params
+    // console.log(type, ...other)
+
+    // 这题考察的应该是类型的隐式转换,考引用类型在比较运算符时候,隐式转换会调用本类型toString或valueOf方法.
+    // let a = {
+    //   [Symbol.toPrimitive]: ((i) => () => ++i)(0)
+    // }
+    // console.log(+a, +a, +a) // 1， 2， 3
+
+    Object.defineProperty(window, 'a', {
+      get: function() {
+        return this.value = this.value ? (this.value +=1 ) : 1
+      }
+    })
+    console.log(a)
   },
   mounted() {
     // console.log(this.$firstPlugin())
-    this.$toast('我', 'center')
+    this.$toast('我', {
+      type: 'center',
+      duration: 3000
+    })
   }
 }
 </script>
