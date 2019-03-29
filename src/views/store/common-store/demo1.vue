@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+var testPromise = new Promise(function)
 export default {
   computed: {
     testStore() {
@@ -12,6 +13,11 @@ export default {
   },
   created() {
     this.$store.dispatch('asyncTestStore', {text: ''})
+  },
+  methods: {
+    /**
+     * 
+     */
   }
 }
 </script>
