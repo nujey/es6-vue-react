@@ -19,6 +19,15 @@ export const nujeyDemos = [
         component: () => import("../../views/demos/page/page.vue")
       },
       {
+        path: 'symbol',
+        name: 'symbol',
+        meta: {
+          layout: true
+        },
+        component: (resolve) => require(["../../views/demos/page/symbol.vue"], resolve)
+        // component: () => import("../../views/demos/page/symbol.vue")
+      },
+      {
         path: 'common-store',
         name: 'common-store',
         meta: {

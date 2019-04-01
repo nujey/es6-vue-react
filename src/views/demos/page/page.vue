@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link :to="{name: 'symbol'}" replace>symbol</router-link>
     <nujey-el-page :total="pageInfo.total"
               :pageSize="pageInfo.pageSize"
               :currentPage="pageInfo.currentPage"
@@ -24,7 +25,6 @@
 </template>
 
 <script>
-
 
 export default {
   data() {
@@ -127,4 +127,3 @@ export default {
   }
 }
 </script>
-
