@@ -33,7 +33,7 @@ export default {
     a[Symbol('a')] = 'Hello'
     a[Symbol('b')] = 'world'
     console.log(a)
-
+    // 作为属性名的Symbol
     const COLOR_RED = Symbol()
     const COLOR_GREEN = Symbol()
 
@@ -51,7 +51,23 @@ export default {
     }
 
     testSymbol(COLOR_GREEN)
-    
+
+    // 消除魔术字符串，实际上就是把频繁出现的字符串变成变量
+    const shapeType = {
+      triangle: Symbol()
+    }
+    function testMagicStr (shape, options) {
+      let res = 0
+      switch(shape) {
+        case shapeType.triangle:
+          res = 0.5 + options.w + options.h
+          break
+        default:
+          throw new Error('没有参数')
+      }
+      return res
+    }
+    console.log(testMagicStr(shapeType.triangle, { w: 1, h: 2 }))
   }
 }
 </script>
