@@ -28,12 +28,16 @@ export default {
     // }
     // console.log(+a, +a, +a) // 1， 2， 3
 
-    Object.defineProperty(window, 'a', {
-      get: function() {
-        return this.value = this.value ? (this.value +=1 ) : 1
-      }
-    })
-    console.log(a)
+    // Object.defineProperty(window, 'a', {
+    //   get: function() {
+    //     return this.value = this.value ? (this.value +=1 ) : 1
+    //   }
+    // })
+    // console.log(a)
+    const symbol1 = Symbol()
+    // console.log(typeof symbol1)
+    const symbol2 = Symbol(42)
+    // console.log(typeof symbol2)
   },
   mounted() {
     // console.log(this.$firstPlugin())

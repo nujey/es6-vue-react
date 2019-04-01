@@ -36,3 +36,5 @@ Object.defineProperty(window, 'a', {
     return this.value = this.value ? (this.value +=1 ) : 1
   }
 })
+
+
