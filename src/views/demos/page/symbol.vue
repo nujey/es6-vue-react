@@ -25,6 +25,7 @@ export default {
     let mySymbol = Symbol()
 
     let a = {
+      aa: 'aa',
       [mySymbol]: ((i) => {return i + 'KKK'})(0)
     }
 
@@ -67,7 +68,10 @@ export default {
       }
       return res
     }
-    console.log(testMagicStr(shapeType.triangle, { w: 1, h: 2 }))
+    // console.log(testMagicStr(shapeType.triangle, { w: 1, h: 2 }))
+
+    // 属性名的遍历
+    console.log(Object.getOwnPropertySymbols(a))    
   }
 }
 </script>
