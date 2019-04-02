@@ -99,6 +99,15 @@ export default {
         return instance[size]
       }
     }
+
+    // symbol.for
+    //重新使用symbol值
+    let s1 = Symbol.for('foo')
+    let s2 = Symbol.for('foo')
+
+    console.log(s1 === s2)
+
+    // 模块的singleton模式
     
   },
   methods: {
