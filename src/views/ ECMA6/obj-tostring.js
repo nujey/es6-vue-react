@@ -17,6 +17,7 @@ let a2 = {
     return a2.i + 3
   }
 }
+
 if (a2 == 1 && a2 == 2) {
   console.log(+a2)
 }
