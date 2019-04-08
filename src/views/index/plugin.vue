@@ -43,7 +43,7 @@ export default {
     // console.log(this.$firstPlugin())
     this.$toast('我', {
       type: 'center',
-      duration: 3000
+      duration: 2000
     })
   }
 }
