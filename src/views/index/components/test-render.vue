@@ -50,8 +50,8 @@
         'h' + this.level,
         {
           'class': {
-            testClass: true,
-            falseClass: false
+            testClass: false,
+            falseClass: true
           },
         },
         children.concat([], createElement('div', header))
