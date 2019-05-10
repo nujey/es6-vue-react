@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="input">
+  <p id="text"></p>
+  <p id="proxy"></p>
+  <script>
+    const obj = {}
+    // Object.defineProperty(obj, 'text', {
+    //   get: function() {
+    //     console.log('get val')
+    //   },
+    //   set: function(newVal) {
+    //     console.log(`set val:${newVal}`)
+    //     document.querySelector('#input').value = newVal
+    //     document.querySelector('#text').innerHTML = newVal
+    //   }
+    // })
+
+    const newObj = new Proxy(obj, {
+      get: (target, key, receiver) => {
+        console.log(target)
+        // return Reflect.get(target, key, receiver)
+      },
+      set: (target, key, value, receiver) => {
+        if (key === 'text') {
+          document.querySelector('#input').value = value
+          document.querySelector('#text').innerHTML = value
+        }
+        console.log(target, key)
+        return Reflect.set(target, key, value, receiver)
+      }
+    })
+
+    document.querySelector('#input').addEventListener('keyup', function(e) {
+      // obj.text = e.target.value
+      newObj.text = e.target.value
+    })
+
+    let uid = 0
+    class Dep {
+      constructor() {
+        this.id = uid++
+        this.subs = []
+      }
+      depend() {
+        Dep.target.addDep(this)
+      }
+      addSub(sub) {
+        this.subs.push(sub)
+      }
+      notify() {
+        this.subs.forEach(sub => sub.update())
+      }
+    }
+    Dep.target = null
+
+    class Observer {
+      constructor(value) {
+        this.value = value
+        this.walk(value)
+      }
+      walk(value) {
+        Object.keys(value).forEach(key => this.covert(key, value[key]))
+      }
+      convert(key, val) {
+        defineReactive(this.value, key, val)
+      }
+    }
+
+    function defineReactive(obj, key, val) {
+      const dep = new Dep()
+      
+      let childOb = observer(val);
+
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: () => {
+          if (Dep.target) {
+            dep.depend()
+          }
+          return val
+        },
+        set: newVal => {
+          if(val === newVal) return;
+          val = newVal
+          childOb = observe(newVal)
+          dep.notify()
+        }
+      })
+    }
+    function observe(value) {
+      if (!value || typeof value !== 'object') {
+        return
+      }
+      return new Observer(value)
+    }
+    
+    class Watcher {
+      constructor(vm, expOrFn, cb) {
+        this.depIds = {}
+        this.vm = vm
+        this.cb = cb
+        this.expOrFn = expOrFn
+        this.val = this.get()
+      }
+      updaye() {
+        this.run()
+      }
+      addDep(dep) {
+        if(!this.depIds.hasOwnProperty(dep.id)) {
+          dep.addSub(this)
+          this.depIds[dep.id] = dep
+        }
+      }
+      run() {
+        const val = this.get()
+        if(val !== this.val) {
+          this.val = val
+          this.cb.call(this.vm, val)
+        }
+      }
+      get() {
+        Dep.target = this
+        const val = this.vm._data[this.expOrFn]
+        dep.target = null
+        return val
+      }
+    }
+
+    class Vue{
+      constructor(options = {}) {
+        this.$options = options
+        let data = (this._data = this.$options.data)
+        Object.keys(data).forEach(key => this._proxy(key))
+        observe(data)
+      }
+      $watch(expOrFn, cb) {
+        new Watcher(this, expOrFn, cb)
+      }
+      _proxy(key) {
+        Object.defineProperty(this, key, {
+          configurable: true,
+          enumerable: true,
+          get: () => this._data[key],
+          set: val => {
+            this._data[key] = val
+          }
+        })
+      }
+    }
+  </script>
+</body>
+</html>
