@@ -13,6 +13,7 @@
 </template>
 <script>
 import { mixinDemo } from '../../mixins/mixinDemo.js'
+import Vue from 'vue';
 export default {
   mixins: [mixinDemo],
   data() {
@@ -22,8 +23,9 @@ export default {
     }
   },
   created() {
+    console.log(this.$options.template)
     const date = new Date()
-    console.log(new Date().getMonth())
+
     const d = new Date(new Date().getFullYear().toString())
 
     Math.ceil(( new Date() - new Date(new Date().getFullYear().toString()))/(24*60*60*1000))+1;
