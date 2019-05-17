@@ -11,7 +11,7 @@
                  :exportTag="'out-table'"
                  @on-export="handleExport"></xlsx-export>
 
-    <el-table :data="list" border id="out-table">
+    <el-table :data="list" border id="out-table" >
       <el-table-column prop="编号" label="编号"></el-table-column>
       <el-table-column prop="姓名" label="姓名"></el-table-column>
       <el-table-column prop="age" label="年龄"></el-table-column>
@@ -29,6 +29,7 @@
 export default {
   data() {
     return {
+      name: '2222',
       pageInfo: {
         total: 200,
         pageSize: 10,
@@ -45,14 +46,20 @@ export default {
       arr: [{id: 1, name: '1'}, {id: 2, name: '1'}, {id: 3, name: '2'}, {id: 4, name: '3'}, {id: 5, name: '3'}, {id: 5, name: '4'}]
     }
   },
-  created() {
+  mounted() {
     this.arrReduce(this.arr, 'name')
+    setTimeout(() => {
+      this.list = [1, 2, 3]
+    }, 3000)
   },
+  updated() {
+    console.log(this.name)
+  },
+
   methods: {
     handleChange: function(info) {
       this.pageInfo.pageSize = info.pageSize
       this.pageInfo.currentPage = info.currentPage
-      console.log(this.pageInfo)
     },
     arrReduce: function(arr, name) {
       var hash = {};
