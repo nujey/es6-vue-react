@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 具名函数的时候可以自己调用自己实现递归
+    function test1(n) {
+      return !(n > 1) ? 1 : test1(n - 1) * n
+    }
+   [1, 2, 3, 4, 5].map(test1)
+
+    // 匿名函数的时候 需要arguments.callee来实现递归
+    ;[1, 2, 3].map(function(n) {
+      console.log(arguments)
+      // return !(n > 1) ? 1 : arguments.callee(n - 1) * n
+    })
+
+    // 如何把一个类数组转变成数组
+    // var args = Array.prototype.slice.call(arguments)
+    // var args1 = [].slice.call(arguments)
+
+    // var args2 = Array.from(arguments)
+    // var args = [...arguments]
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log('%d %s balloons', 11 * 9, 'red')
+
+    console.warn('%d %s balloons', 11 * 9, 'red')
+    
+    console.error('%d %s balloons', 11 * 9, 'red')
+
+    console.log('%c我是CSS字符串', 'color: red')
+
+    console.count(1)
+    console.time('Array initialize')
+    var arr = new Array(100)
+    // Array.from([1, 2, 3])
+    // setTimeout(() => true, 200)
+    for(var i = 100; i >=0; i--) {
+      if (i === 98){}
+    }
+    console.time('Array initialize')
+
+    function test(scope) {
+      return {
+        'self': '自营',
+        'agent': '合作商',
+        'sell': '销售鬼子'
+      }[scope] || '默认'
+    }
+    console.log(test('self1'))
+  </script>
+</body>
+</html>
