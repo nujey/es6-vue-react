@@ -1,10 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
+import about from '../views/router/index.vue'
 
 Vue.use(Router)
 const router = new Router({
-  routes,
+  // routes,
+  routes: [
+    {
+      path: '/router-module',
+      component: about
+    }
+  ],
   mode: 'history'
 })
 
