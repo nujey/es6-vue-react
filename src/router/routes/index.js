@@ -67,6 +67,10 @@ export default [
       name: 'plugin',
       path: 'plugin',
       component: () => import("../../views/index/plugin.vue")
+    }, {
+      // name: 'router-module',
+      path: 'router-module',
+      component: () => import("../../views/router/index.vue")
     }]
   },
   ...nujeyDemos
