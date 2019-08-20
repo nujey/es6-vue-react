@@ -22,11 +22,24 @@ Vue.use(nujeyCp)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+Vue.component('blog-post', {
+  // 在 JavaScript 中是 camelCase 的
+  props: ['postTitle'],
+  template: '<h3>{{ postTitle }} 哈哈哈哈哈</h3>'
+})
+
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  // el: '#app',
   router,
   store,
-  components: { App },
-  template: '<App/>'
-})
+  // components: { App },
+  // template: '<App/>'
+  render: h => h(App)
+}).$mount("#app")
+
+// Vue.component('blog-post', {
+//   // 在 JavaScript 中是 camelCase 的
+//   props: ['postTitle'],
+//   template: '<h3>{{ postTitle }}</h3>'
+// })
