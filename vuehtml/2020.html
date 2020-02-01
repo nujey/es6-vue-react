@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2020疫情实时动态</title>
+  <style>
+    * {margin: 0; padding: 0;}
+    html, body { width: 100%; height: 100%;}
+    #app { width: 100%; height: 100%; background: #f2f3f8; overflow: scroll;}
+    .header {
+      height: 200px;
+      background: url('./kouzhao.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      font-size: 14px;}
+    .header-title {
+      color: #191970;
+      padding-top: 20px;
+      margin-left: 30px;
+    }
+    .total-p {
+      width: 40%;
+      margin-right: 20px;
+      color: #191970;
+      font-size: 14px;
+      text-align: right;
+      background: rgba(255, 255, 255, .7);
+      border-radius: 22px;
+      /* display: inline-block; */
+      padding: 0 12px;
+      margin-bottom: 4px;
+      float: right;
+    }
+    .header-desc {
+      color: #191970;
+      margin-left: 30px;
+      margin-bottom: 20px;
+    }
+    .main-title {
+      display: flex;
+      justify-content: space-around;
+      padding: 4px 0px;
+      border-top: 1px solid #E6E6FA;
+      background: #fff;
+    }
+    .list-item {
+      flex-wrap: wrap;
+    }
+    .citys-child-item {
+      width: 100%;
+      display: flex;
+    }
+    .main-item {
+      font-size: 16px;
+      width: 25%;
+      line-height: 25px;
+      font-size: 14px;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .main-city-item {
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .child-city-name {
+      font-size: 12px;
+    }
+    .arrow {
+      width: 0px; height: 0px;
+      /* background: #E6E6FA; */
+      /* border-top: 1px solid #AFEEEE; */
+      border-width: 5px;
+      border-style: solid;
+      border-color: #AFEEEE transparent transparent transparent;
+      display: inline-block;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+  <!-- <script src="https://cdn.bootcss.com/fetch-jsonp/1.1.3/fetch-jsonp.min.js"></script> -->
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div style="height: 100%; background: rgba(56, 173, 255, .2);">
+        <h3 class="header-title">新型冠状病毒肺炎</h3>
+        <p class="header-desc">各省市疫情数据统计</p>
+        <div>
+          <p class="total-p">全国确诊人数: &nbsp;<span style="color: #483D8B">{{totalCount}}</span></p>
+          <p class="total-p">全国治愈人数: &nbsp;<span style="color: #00FF00">{{curedCount}}</span></p>
+          <p class="total-p">全国死亡人数: &nbsp;<span style="color: #CD5C5C">{{deadCount}}</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="main-title">
+        <span class="main-item">省市</span>
+        <span class="main-item">确诊数</span>
+        <span class="main-item">治愈数</span>
+        <span class="main-item" >死亡数</span>
+      </div>
+      <div class=" main-list">
+        <div class="main-title list-item" v-for="(item, index) in mainList">
+          <span class="main-city-item" style="align-content: left;" @click="handleCLickItem(index)"><span class="arrow"></span>&nbsp;{{item.provinceShortName}}</span>
+          <span class="main-city-item" style="color: #483D8B">{{item.confirmedCount}}</span>
+          <span class="main-city-item" :style="{color: item.curedCount > 0 ? '#00FF00' : '#000'}">{{item.curedCount}}</span>
+          <span class="main-city-item" :style="{color: item.deadCount > 0 ? '#CD5C5C' : '#000'}">{{item.deadCount}}</span>
+          <div style="width: 100%" v-if="item.status">
+            <div class="citys-child-item" v-for="(child, index) in item.cities" :key="index">
+              <span class="main-city-item child-city-name">&nbsp;&nbsp;{{child.cityName}}</span>
+              <span class="main-city-item" style="color: #483D8B">{{child.confirmedCount}}</span>
+              <span class="main-city-item" :style="{color: child.curedCount > 0 ? '#00FF00' : '#000'}">{{child.curedCount}}</span>
+              <span class="main-city-item" :style="{color: child.deadCount > 0 ? '#CD5C5C' : '#000'}">{{child.deadCount}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          text: '1111',
+          totalCount: 0,
+          curedCount: 0,
+          deadCount: 0,
+          mainList: []
+        }
+      },
+      created() {
+        const that = this
+        $.ajax({
+          url: 'https://fish.restartai.com/2020',
+          type: 'GET',
+          dataType: 'jsonp',
+          success: function(res) {
+            res.forEach(item => {
+              item.status = false
+              that.totalCount += +item.confirmedCount
+              that.curedCount += +item.curedCount
+              that.deadCount += +item.deadCount
+            })
+            that.mainList = res
+          }
+        })
+      },
+      methods: {
+        handleCLickItem(index) {
+          this.mainList[index].status = !this.mainList[index].status
+        }
+      }
+    })
+    // fetchJsonp('https://fish.restartai.com/2020', {
+    //   jsonpCallback: 'callback',
+    //   }).then(res => res.json())
+    //   .then(data => console.log(data))
+  </script>
+</body>
+</html>
