@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const obj = [['a1', 'a'],['b1', 'b']]
+    const map = new Map(obj)
+    console.log(map.get('a1'))
+    
+    const map1 = new Map()
+    map1.set('foo', true).set(1, 111).set(2, 222)
+    map1.set('bar', false).set('bob', 'bob').set('lazy', 'lazy')
+    console.log(map1)
+    for(let item of map1.keys()) {
+      // console.log(item)
+    }
+    for(let value of map1.entries()) {
+      console.log(value)
+    }
+    for (let [key, value] of map1) {
+      console.log([key, value])
+    }
+    console.log([...map1.entries()].flat(Infinity))
+
+    const _counter = new WeakMap()
+    const _action = new WeakMap()
+
+    class Countdown {
+      constructor(counter, action) {
+        _action.set(this, action)
+        _counter.set(this, counter)
+      }
+      dec() {
+        let counter = _counter.get(this)
+        if (counter < 1) return
+        counter--;
+        _counter.set(this, counter)
+        if (counter === 0) {
+          _action.get(this)()
+        }
+      }
+    }
+    const c = new Countdown(2, () => console.log('DONE'))
+  </script>
+</body>
+</html>

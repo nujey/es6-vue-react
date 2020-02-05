@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Fruits() {}
+    Fruits.prototype = {
+      color: 'red',
+      say: function() {
+        console.log(this)
+        console.log('我是' + this.color)
+      }
+    }
+    var apple = new Fruits()
+    // console.log(apple.__proto__ === Fruits.prototype)
+    // apple.say()
+    const banana = {
+      color: 'yellow'
+    }
+    apple.say.call(banana)
+    apple.say.apply(banana)
+
+  //  定义一个log方法 可以代理console.log的方法 
+  function log() {
+    // arguments.push('666')
+    console.log(arguments instanceof Array)
+    const args = Array.prototype.slice.call(arguments)
+    console.log(args instanceof Array)
+    args.unshift("(app)")
+    console.log.apply(console, arguments)
+  }
+  log(1, 2, 3)
+  </script>
+</body>
+</html>
