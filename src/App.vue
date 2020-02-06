@@ -2,10 +2,10 @@
   <div id="app">
     <button v-test-direct="'add'"></button>
     <div class="flex">
-      <router-link :to="{name: 'page'}" replace>nujey-分页</router-link>
+      <router-link :to="{name: 'page'}">nujey-分页</router-link>
       <router-link :to="{name: 'file-reader'}">nujey-文件上传</router-link>
-      <router-link :to="{name: 'sass'}" replace>nujey-sass</router-link>
-      <router-link :to="{name: 'plugin'}" replace>plugin</router-link>
+      <router-link :to="{name: 'sass'}">nujey-sass</router-link>
+      <router-link :to="{name: 'plugin'}">plugin</router-link>
 
       <router-link :to="{name: 'render-demo'}" replace>render-demo</router-link>
       <router-link to="/router-module">路由模块1</router-link>

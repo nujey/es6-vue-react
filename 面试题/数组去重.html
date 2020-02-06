@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const arr = [];
+    // 生成[0, 100000]之间的随机数
+    for (let i = 0; i < 100000; i++) {
+      arr.push(0 + Math.floor((100000 - 0 + 1) * Math.random()))
+    }
+
+    console.time('kkkkk')
+    var arr1 = [...new Set(arr)]
+    console.timeEnd('kkkkk')
+    function unique() {
+      const res = []
+      for(let i = 0; i < arr.length; i++) {
+        for(var j = 0; j< res.length; j++) {
+          if (arr[i] === res[j]) {
+            break
+          }
+        }
+        if (j === res.length) {
+          res.push(arr[i])
+        }
+      }
+      // console.log(res, 1)
+      return res
+    }
+    console.time('aaa')
+    // unique()
+    console.timeEnd('aaa')
+    function unique1() {
+      for(let i=0; i < arr.length; i++) {
+        for(let j = i + 1; j < arr.length; j++) {
+          if (arr[i] === arr[j]) {
+            arr.splice(j, 1)
+          }
+        }
+      }
+      // console.log(arr, 2)
+    }
+    console.time('bbb')
+    // unique1()
+    console.timeEnd('bbb')
+
+    function unique2() {
+      const map = {}
+      let res = []
+      for(let i = 0; i < arr.length; i++) {
+        if (!map[arr[i]]) {
+          map[arr[i]] = true
+          res.push(arr[i])
+        }
+      }
+      // console.log(res, 3)
+    }
+    unique2()
+    function unique3() {
+      const map = {}
+      let res = []
+      for(let i = 0; i < arr.length; i++) {
+        map[arr[i]] ? "" : map[arr[i]] = true && res.push(arr[i])
+      }
+      // console.log(res, 4)
+    }
+    console.time('ccc')
+    // unique3()
+    console.timeEnd('ccc')
+
+    function unique4() {
+      return arr.filter((item, index) => {
+        return arr.indexOf(item) === index
+      })
+    }
+    console.time('dddd')
+    // unique4()
+    console.timeEnd('dddd')
+
+    function unique5() {
+      const res = []
+      arr.forEach(item => {
+        if (!res.includes(item)) {
+          res.push(item)
+        }
+      })
+      return res
+    }
+    console.time('eeee')
+    // unique5()
+    console.timeEnd('eeee')
+
+    // 数组对象去重
+    var list = [{id: 1, name: '第一名'}, 
+            {id: 2, name: '第二名'}, 
+            {id: 3, name: '第三名'},
+            {id: 4, name: '第四名'},
+            {id: 1, name: '第二名'},
+            {id: 2, name: '第三名'},
+            {id: 3, name: '第二名'}]
+    function unique6(name) {
+      const map = {}, res = []
+      for(let i = 0; i < list.length; i++) {
+        map[list[i][name]] ? '' : map[list[i][name]] = 'true' && res.push(list[i])
+      }
+      return res
+    }
+    console.log(unique6('name'))
+
+    function unique7() {
+      const res = []
+      const temp = new Map()
+      for(let i = 0; i < arr.length; i++) {
+        if(!temp.get(arr[i], 1)) {
+          temp.set(arr[i], 1)
+          res.push(arr[i])
+        }
+      }
+      return res
+    }
+    console.time('ffff')
+    unique7()
+    console.timeEnd('ffff')
+  </script>
+</body>
+</html>
