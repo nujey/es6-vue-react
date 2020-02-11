@@ -86,3 +86,31 @@ Vue.directive('focus', {
 Vue.directive('simple', function(el, binding){
   console.log(el, binding)
 })
+
+// 指令学习
+Vue.directive('study', {
+  // 指令第一次绑定到元素
+  bind: function(el, binding, vnode) {
+    console.log(el)
+    console.log(binding)
+    el.style.color = binding.value.color
+  },
+  // 被绑定的元素插入父节点时调用
+  inserted: function(el, binding) {
+    el.style.position = 'absolute'
+    el.style[binding.value.arg] = binding.value.distance + 'px'
+  },
+  // 所在组件的vnode更新时调用
+  update: function(binding) {
+    console.log(binding)
+  },
+  // 指令所在组件的vnode及其子vnode更新后调用
+  componentUpdated: function (param) {
+    console.log(param)
+  },
+  // 只调用一次 指令与元素解绑的时候调用
+  unbind: function (param) {
+    console.log(param)
+    param.style.color = 'blue'
+  }
+})

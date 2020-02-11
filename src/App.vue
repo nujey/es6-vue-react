@@ -91,6 +91,8 @@ export default {
   justify-content: center;
   align-content: center;
   flex-direction: column-reverse;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #f00;
 }
 .slide-right-enter-active,
 .slide-right-leave-active,
