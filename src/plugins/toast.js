@@ -4,7 +4,7 @@ Toast.install = function(Vue) {
   // Vue.prototype.$msg = 'Hello World'
   // 添加全局方法
   Vue.prototype.$toast = (tips, options = { type: 'center', duration: 2000 }) => {
-    console.log(options)
+    // console.log(options)
     if (options) {
       options.defaultType = options.type
     }
@@ -28,12 +28,12 @@ Toast.install = function(Vue) {
   })
   Vue.mixin({
     created: function () {
-      console.log('plugin')
+      // console.log('plugin')
     }
   })
   Vue.directive('my-haha', {
     bind: function(el, binding) {
-      console.log(binding)
+      // console.log(binding)
       el.style.color = binding.value
     }
   })

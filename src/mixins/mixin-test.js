@@ -9,13 +9,14 @@ export const MixinTest = {
   },
   methods: {
     minxinTest() {
-      console.log(this.minxStr)
+      // console.log(this.minxStr)
+      this.$store.dispatch('getMixinData', { name: 'mixin-store-name' })
     }
   }
 }
 
 Vue.mixin({
   created() {
-    console.log(this.$options)
+    // console.log(this.$options)
   }
 })
