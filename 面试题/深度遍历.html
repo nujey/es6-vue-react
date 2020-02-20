@@ -7,6 +7,15 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="root">
+    <p>
+      <span>1</span>
+    </p>
+    <ul>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
   <script>
     function traverseDF(node, nodeList) {
       if (node) {
@@ -15,7 +24,28 @@
           traverseDF(node.children[i], nodeList)
         }
       }
+      return nodeList
     }
+    var root = document.getElementById('root')
+    console.log(traverseDF(root, nodeList = []))
+
+    function wideTraversal(node) {
+      var nodes = []
+      if (node != null) {
+        var queue = []
+        queue.unshift(node)
+        while(queue.length !== 0) {
+          var item = queue.shift()
+          nodes.push(item)
+          var children = item.children
+          for(var i = 0; i < children.length; i++) {
+            queue.push(children[i])
+          }
+        }
+      }
+      return nodes
+    }
+    console.log(wideTraversal(root))
   </script>
 </body>
 </html>
