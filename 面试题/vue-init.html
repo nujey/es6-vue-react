@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    Vue.prototype._init = function(options) {
+      const vm = this
+      vm._uid = uid++
+      let startTag, endtag
+      vm._isVue = true
+      if(options && options._isComponent) {
+        initInternalComponent(vm, options)
+      } else {
+        vm.$options = mergeOptions(
+          resolveConstructorOptions(vm.constructor),
+          options || {},
+          vm
+        )
+      }
+      vm._self = vm
+      initLifecycle(vm)
+      initEvents(vm)
+      initRender(vm)
+      callHook(vm, 'beforeCreate')
+      initInjections(vm)
+      initState(vm)
+      initProvide(vm)
+      callHook(vm, 'created')
+
+      if (vm.$options.el) {
+        vm.$mount(vm.$options.el)
+      }
+    }
+    const mount = Vue.prototype.$mount // 缓存原型上的$mount方法
+    Vue.prototype.$mount = function(el, hydrating) {
+      el = el && query(el)
+      // 不要在html和body上面挂载vue实例 el做限制
+      if (el === document.body || el === document.documentElement) {
+        return this
+      }
+      const options = this.$options
+      // 如果没有定义render方法，则把el或者template转化为render方法
+      // vue2.0中 所有组件的渲染都需要render方法
+
+      if (!options.render) {
+        let template = options.template
+        if (template) {
+          if (typeof template === 'string') {
+            if (template.charAt[0] === '#') {
+              template = idToTemplate(template)
+              if (process.env.NODE_ENV !== 'production' && !template) {
+                warn(`Template element not fount or is empty:${options.template}`, this)
+              }
+            }
+          } else if (template.nodeType) {
+            template = template.innerHTML
+          } else {
+            if (process.env.NODE_ENV !== 'production') {
+              warn('invalid template option:' + template, this)
+            }
+            return this
+          }
+        } else if (el) {
+          template = getOuterHTML(el)
+        }
+        if (template) {
+          if(process.env.NODE_ENV !== 'production' && config.performance && mark) {
+            mark('compile')
+          }
+          // vue的在线编译的过程 编译为render方法
+          const { render, staticRenderFns } = compileToFunctions(template, {
+            shouldDecodeNewlines,
+            shouldDecodeNewlinesForHref,
+            delimiters: options.delimiters,
+            comments: options.comments
+          }, this)
+          options.render = render
+          options.staticRenderFns = staticRenderFns
+          if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+            mark('compile end')
+            measure(`vue ${this._name} compile`, 'compile', 'compile end')
+          }
+        }
+      }
+      return mount.call(this, el, hydrating)
+    }
+    function mountComponent (vm, el, hydrating) {
+      vm.$el = el
+      if(!vm.$options.render) {
+        vm.$options.render = createEmptyVNode
+      }
+      callHook(vm, 'beforeMount')
+      let updateComponent
+      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+        updateComponent = () => {
+          const name = vm._name
+          const id = vm._uid
+          const startTag = `vue-perf-start:${id}`
+          const endTag = `vue-perf-end:${id}`
+
+          mark(startTag)
+          const vnode = vm._render()
+          mark(endTag)
+          measure(`vue ${name} render`, startTag, endTag)
+
+          mark(startTag)
+          vm._update(vnode, hydrating)
+          mark(endTag)
+          measure(`vue ${name} patch`, startTag, endTag)
+        }
+      } else {
+        updateComponent = () => {
+          vm._update(vm._render(), hydrating)
+        }
+      }
+      new Watcher(vm, updateComponent, noop, {
+        before() {
+          if (vm._isMounted) {
+            callHook(vm, 'beforeUpdate')
+          }
+        }
+      }, true /* isRenderWatcher */)
+      hydrating = false
+
+      if (vm._$vnode == null) {
+        vm._isMounted = true
+      }
+      return vm
+    }
+  </script>
+</body>
+</html>
