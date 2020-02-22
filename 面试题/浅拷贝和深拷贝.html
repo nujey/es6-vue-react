@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function shallowClone(o) {
+      const obj = {}
+      for(let i in o) {
+        obj[i] = o[i]
+      }
+      return obj
+    }  
+
+    function clone(source) {
+      var target = {}
+      for (var i in source) {
+        if (source.hasOwnProperty(i)) {
+          if (typeof source[i] === 'object') {
+            target[i] = clone(source[i])
+          } else {
+            target[i] = source[i]
+          }
+        }
+      }
+      return target
+    }
+    var obj1 = {a: 1, b: {c:{d: 222}}}
+    obj2 = clone(obj1)
+    obj3 = JSON.parse(JSON.stringify(obj1))
+    console.log(obj2, obj3)
+  </script>
+</body>
+</html>
