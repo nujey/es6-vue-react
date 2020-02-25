@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function _createElement(tag) {
+      if (typeof tag === 'string') {
+        let Ctor
+        ns = (context.$vnode && context.$vnode.ns) || config.getTagnamespace(tag)
+        if (config.isReservedTag(tag)) {
+          vnode = new VNode(
+            config.parsePlatformTagName(tag), data, children, undefined, undefined, context
+          )
+        } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+          vnode = createComponent(Ctor, data, context, children, tag)
+        } else {
+          vnode = new VNode(tag, data, children, undefined, undefined, context)
+        }
+      } else {
+        vnode = createComponent(tag, data, context, children)
+      }
+    }  
+    function createComponent(Ctor, data, context, children, tag) {
+      if (isUndef(Ctor)) {
+        return
+      }
+      const baseCtor = context.$options._base
+      if (isObject(Ctor)) {
+        Ctor = baseCtor.extend(Ctor)
+      }
+      let asyncFactory
+      if (isUndef(Ctor.cid)) {
+        asyncFactory = Ctor
+        Ctor = resolveAsyncComponent(asyncFactory, baseCtor, context)
+        if (Ctor === undefined) {
+          return createAsyncPlaceholder(
+            asyncFactory, data, context, children, tag
+          )
+        }
+      }
+      data = data || {}
+      resolveConstructorOptions(Ctor)
+      if (isDef(data.model)) {
+        transformModel(Ctor.options, data)
+      }
+      const propsData = extractPropsFormVNodeData(data, Ctor, tag)
+      if (isTrue(Ctor.options.functional)) {
+        return createFunctionalComponent(Ctor, propsData, data, context, children)
+      }
+      const listeners = data.on
+      data.on = data.nativeOn
+      if (isTrue(Ctor.options.abstract)) {
+        const slot = data.slot
+        data = {}
+        if (slot) {
+          data.slot = slot
+        }
+      }
+      // 安装组件钩子函数
+      installComponenthooks(data)
+      // 实例化VNode
+      const name = Ctor.options.name || tag
+      const vnode = new VNode(
+        `vue-component-${Ctor.cid}${name ? `-${name}` : ''}`,
+        data, undefined, undefined, undefined, context,
+        { Ctor, propsData, listeners, tag, children },
+        asyncFactory
+      )
+      return vnode
+    }
+    Vue.extend = function (extendOptions) {
+      extendOptions = extendOptions || {}
+      const Super = this
+      const SuperId = Super.cid
+      const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {})
+      if (cachedCtors[SuperId]) return cachedCtors[SuperId]
+      const name = extendOptions.name || Super.options.name
+      const Sub = function VueComponent(options) {
+        this._init(options)
+      }
+      Sub.prototype = Object.create(Super.prototype)
+      Sub.prototype.constructor = Sub
+      Sub.cid = cid++
+      Sub.options = mergeOptions(
+        Super.options,
+        extendOptions
+      )
+      Sub['super'] = Super
+      if (sub.options.props) {
+        initProps(Sub)
+      }
+      if (Sub.options.computed) {
+        initComputed(Sub)
+      }
+      Sub.extend = Super.extend
+      Sub.mixin = Super.mixin
+      Sub.use = Super.use
+
+      ASSET_TYPES.forEach(function (type){
+        Sub[type] = Super[type]
+      })
+      if (name) {
+        Sub.options.components[name] = Sub
+      }
+      Sub.superOptions = Super.options
+      Sub.extendOptions = extendOptions
+      Sub.sealedOptions = extend({}, Sub.options)
+
+      cachedCtors[SuperId] = Sub
+      return Sub
+    }
+    const componentVNodeHooks = {
+      init(vnode, hydrating) {
+        if (vnode.componentInstance && !vnode.componentInstance._isDeatroyed && vnode.data.keepAlive) {
+          const mountedNode = vnode
+          componentVNodeHooks.prepatch(mountedNode, mountedNode)
+        } else {
+          const child = vnode.componentInstance = createComponentInstanceForVnode(vnode, activeInstance)
+          child.$mount(hydrating ? vnode.elm : undefined, hydrating)
+        }
+      },
+      prepatch(oldVnode, vnode) {
+        const options = vnode.componentOptions
+        const child = vnode.componentInstance = oldVnode.componentInstance
+        updateChildComponent(child, options.propsData, options.listeners, vnode, options.children)
+      },
+      insert(vnode) {
+        const { context, componentInstance } = vnode
+        if (!componentInstance._isMounted) {
+          componentInstance._isMounted = true
+          callHook(componentInstance, 'mounted')
+        }
+        if (vnode.data.keepAlive) {
+          if (context._isMounted) {
+            queueActivatedComponent(componentInstance)
+          } else {
+            activateChildComponent(componentInstance, true)
+          }
+        }
+      },
+      destroy(vnode) {
+        const { componentInstance } = vnode
+        if (!componentInstance._isDestroy) {
+          if(!vnode.data.keepAlive) {
+            componentInstance.$destroy()
+          } else {
+            deactivateChildComponent(componentInstance, true)
+          }
+        }
+      }
+    }
+    const hooksToMerge = Object.keys(componentVNodeHooks)
+    function installComponenthooks(data) {
+      const hooks = data.hook || (data.hook = {})
+      for(let i = 0; i < hooksToMerge.length; i++) {
+        const key = hooksToMerge[i]
+        const existing = hooks[key]
+        const toMerge = componentVNodeHooks[key]
+        if (existing !== toMerge && !(existing && existing._merged)) {
+          hooks[key] = existing ? mergeHook(toMerge, existing) : toMerge
+        }
+      }
+    }
+    function mergeHook(f1, f2) {
+      const merged = (a, b) => {
+        f1(a, b)
+        f2(a, b)
+      }
+      merged._merged = true
+      return merged
+    }
+  </script>
+</body>
+</html>
