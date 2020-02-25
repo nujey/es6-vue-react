@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="input">
+  <p id="text"></p>
+  <script>
+    var obj = {
+      name: 'proxy'
+    }
+    // Object.defineProperty(obj, 'text', {
+    //   configurable: true, // 可配置和可删除
+    //   enumerable: true, // 是否会出现在for in或者Object.keys遍历中
+    //   get: () => {
+    //     console.log(val)
+    //   },
+    //   set: (val) => {
+    //     console.log(val)
+    //     document.querySelector('#input').value = val
+    //     document.querySelector('#text').innerHTML = val
+    //   } 
+    // })
+    const newObj =  new Proxy(obj, {
+      get: function(target, propKey, receiver) {
+        console.log(target, propKey, receiver)
+        // return Reflect.get(target, propKey, receiver)
+      },
+      set: function(target, propKey, value, receiver) {
+        console.log(target, propKey)
+        console.log(target[propKey], value)
+        document.querySelector('#text').innerHTML = value
+        return Reflect.set(target, propKey, value, receiver)
+      }
+    })
+
+    document.querySelector('#input').addEventListener('keyup', function(e) {
+      // obj.text = e.target.value
+      console.log(newObj.age)
+      newObj.text = e.target.value
+    })
+
+  </script>
+</body>
+</html>

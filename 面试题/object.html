@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var People = function(name) {
+      this.name = name
+    }
+    People.prototype.sayName = function() {
+      console.log(this.name)
+    }
+    function Person (name, age) {
+      this.age = age
+      People.call(this, name)
+    }
+    Person.prototype = Object.create(People.prototype, {
+      constructor: {
+        configurable: true,
+        enumerable: true,
+        value: Person,
+        writable: true
+      }
+    })
+    Person.prototype.sayAge = function() {
+      console.log(this.age)
+    }
+    var p1 = new Person('person1', 25)
+    p1.sayName()
+    p1.sayAge()
+    
+  </script>
+</body>
+</html>

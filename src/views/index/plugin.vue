@@ -1,5 +1,6 @@
 <template>
-  <div v-toast:top.foo="'左侧的提示'">插件的测试</div>
+  <!-- <div v-toast:top.foo="'左侧的提示'">插件的测试</div> -->
+  <div>插件测试</div>
 </template>
 
 <script>

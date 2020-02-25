@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function shallowClone(o) {
+      const obj = {}
+      for(let i in o) {
+        obj[i] = o[i]
+      }
+      return obj
+    }  
+    function shallowClone1(o) {
+      const obj = {}
+      for (let i in o) {
+        obj[i] = o[i]
+      }
+      return obj
+    }
+    function clone(source) {
+      var target = {}
+      for (var i in source) {
+        if (source.hasOwnProperty(i)) {
+          if (typeof source[i] === 'object') {
+            target[i] = clone(source[i])
+          } else {
+            target[i] = source[i]
+          }
+        }
+      }
+      return target
+    }
+    function clone1 (source) {
+      var target = {}
+      for(var i in source) {
+        if(typeof source[i] === 'object') {
+          target[i] = clone1(source[i])
+        } else {
+          target[i] = source[i]
+        }
+      }
+      return target
+    }
+    var obj1 = {a: 1, b: {c:{d: 222}}}
+    obj2 = clone(obj1)
+    obj3 = JSON.parse(JSON.stringify(obj1))
+    console.log(obj2, obj3)
+
+    function traverseDF(node, nodeList) {
+      if (node) {
+        nodeList.push(node)
+        for(var i = 0; i < node.children.length; i++) {
+          traverseDF(node.children[i], nodeList)
+        }
+      }
+      return nodeList
+    }
+    function wideTraversal(node) {
+      var nodes = []
+      if (node !== null) {
+        var queue = []
+        queue.unshift(node)
+        while(queue.length !== 0) {
+          var item = queue.shift()
+          nodes.push(item)
+          var children = item.children
+          for(var i = 0; i < children.length; i++) {
+            queue.push(children[i])
+          }
+        }
+      }
+      return nodes
+    }
+  </script>
+</body>
+</html>

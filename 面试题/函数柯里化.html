@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function add (x, y) {
+      return x + y
+    }  
+    function curryingAdd(x) {
+      return function(y) {
+        return x + y
+      }
+    }
+    function add(x) {
+      return function (y) {
+        return x + y
+      }
+    }
+    Function.prototype.bind = function(context) {
+      var _this = this
+      var args = Array.prototype.slice.call(arguments, 1)
+      return function() {
+        return _this.apply(context, args)
+      }
+    }
+    function add () {
+      var _args = Array.prototype.slice.call(arguments)
+      var _adder = function() {
+        _args.push(...arguments)
+        // 递归调用
+        return _adder
+      }
+
+      _adder.toString = function() {
+        return _args.reduce((a, b) => a + b)
+      }
+      return _adder
+    }
+    const add1 = (...args) => args.reduce((acc, cur) => acc + cur, 0)
+    console.log(add1(1, 2, 3))
+    function add2(num) {
+      var sum = num
+      tmp = function(v) {
+        sum += v
+        return tmp
+      }
+      tmp.toString = function() {
+        return sum
+      }
+      return tmp
+    }
+    var sum = add2(1)(2)(3)
+    console.log(sum)
+    function add4() {
+      temp = function() {}
+      let res = 0
+      temp.toString = function() {
+        res = 12345
+        return res
+      }
+      return temp
+    }
+    console.log(add4())
+    function add5() {
+      const args = [...arguments]
+      var temp = function() {
+        args.push(...arguments)
+        return temp
+      }
+      temp.valueOf = temp.toString = function() {
+        console.log(args, 'mmm')
+        return args.reduce((a, b) => a + b)
+      }
+      return temp
+    }
+    console.log(add5(1)(2)(3)(4))
+    
+    function add6(a) {
+      var temp = function(b) { return add(a + b) }
+      return temp
+    }
+    console.log(add6(1)(2)(4))
+  </script>
+</body>
+</html>

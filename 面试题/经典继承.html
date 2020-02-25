@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Father() {
+      this.colors = ['red', 'blue']
+      this.name = arguments[0]
+
+      this.sayname = function() {
+        console.log(this.age)
+      }
+    }  
+    function Son() {
+      this.age = 25
+      Father.call(this, ['aaa', 'bbb'])
+    }
+    let s = new Son()
+    console.log(s.name, s.age)
+    s.sayname()
+
+    function object(o) {
+      function F() {}
+      F.prototype = o
+      return new F()
+    }
+    var p = {
+      friends: [1, 2, 3]
+    }
+    var p1 = object(p)
+    p1.friends.push(4)
+    console.log(p1.__proto__ === object.F.prototype)
+
+
+    function createAnother(original) {
+      var clone = object(original)
+      clone.sayname = function() {
+        alert('name')
+      }
+      return clone
+    }
+  </script>
+</body>
+</html>

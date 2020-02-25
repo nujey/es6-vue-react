@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    Vue.prototype._update = function(vnode, hydrating) {
+      const vm = this
+      const prevEl = vm.$el
+      const prevVnode = vm._vnode
+      const prevActiveInstance = activeInstance
+      activeInstance = vm
+      vm._vnode = vnode
+      if(!prevVnode) {
+        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false)
+      } else {
+        vm.$el = vm.__patch__(prevVnode, vnode)
+      }
+      activeInstance = prevActiveInstance
+      if (prevEL) {
+        prevEl.__vue__ = null
+      }
+      if (vm.$el) {
+        vm.$el.__vue__ = vm
+      }
+      if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
+        vm.$parent.$el = vm.$el
+      }
+    }
+    const patch = createPatchFunction({ nodeOps, modules })
+    Vue.prototype.__patch__ = patch
+    const hooks = ['create', 'activate', 'update', 'remove', 'destory']
+    function createPatchFunction(backend) {
+      let i, j
+      const cbs = {}
+      const { modules, nodeOps } = backend
+      for(i = 0; i < hooks.length; ++i) {
+        cbs[hooks[i]] = []
+        for(j = 0; j < modules.length; ++j) {
+          if (isDef(modules[j][hooks[i]])) {
+            cbs[hooks[i]].push(modules[j][hooks[i]])
+          }
+        }
+      }
+      return function patch(oldVnode, vnode, hydrating, removeOnly) {
+        if (isUnDef(vnode)) {
+          if (isDef(oldVnode)) invokeDestroyHook(oldVnode)
+          return
+        }
+        let isInitialPatch = false
+        // 执行的队列
+        const insertedVnodeQueue = []
+
+      }
+    }
+
+
+
+
+
+
+    var obj1 = new Object()
+    var obj2 = obj1
+    obj2.name = 'xxx'
+    obj1.name = 'xxx'
+  </script>
+</body>
+</html>

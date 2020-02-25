@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import dog from './modules/dog'
 import cat from './modules/cat'
 import testStore from './modules/test-store'
+import {mixinStore} from './modules/mixin'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
   modules: {
     dog,
     cat,
-    testStore
+    testStore,
+    mixinStore
   }
 })
 

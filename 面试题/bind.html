@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    this.num = 9
+    var mymodule = {
+      num: 81,
+      getNum: function() {
+        console.log(this.num)
+      }
+    }
+    mymodule.getNum()
+    var bar = function() {
+      console.log(this.x)
+    }
+    var foo = {
+      x: 3
+    }
+    bar()
+    bar.bind(foo)()
+
+    function list() {
+      return Array.prototype.slice.call(arguments)
+    }
+    var list1 = list(1, 2, 3)
+    console.log(list1)
+  </script>
+</body>
+</html>

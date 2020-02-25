@@ -13,7 +13,7 @@ export const testDirect = {
 let options = {}
 export const toast = {
   bind: (el, binding) => {
-    // // // // // console.log(binding)
+    console.log(binding)
     options.direction = binding.arg
   },
   inserted: (el, binding) => {

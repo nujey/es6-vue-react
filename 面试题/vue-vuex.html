@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function vuexInit() {
+      const options = this.$options
+      if (options.store) {
+        this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store
+      } else if (options.parent && options.parent.$store) {
+        this.$store = options.parent.$store
+      }
+    }
+    var store = new Store({
+      actions, getters, state, mutations, modules
+    })
+    class Store {
+      constructor(options = {}) {
+        if (!Vue && typeof window !== 'undefined' && window.Vue) {
+          install(window.Vue)
+        }
+        const { plugins = [], strict = false } = options
+        const store = this
+        const { dispatch, commit } = this
+        this.dispatch = function boundDispatch( type, payload ) {
+          return dispatch.call(store, type, payload)
+        }
+        this.commmit = function boundCommit (type, payload, options) {
+          return commit.call(store, type, payload, options)
+        }
+        this.strict = strict
+        const state = this._modules.root.state
+        installModule(this, state, [], this._modules.root)
+        resetStreVM(this, state)
+        plugins.forEach(plugin => plugin(this))
+        if (Vue.config.devtools) {
+          devtoolPlugin(this)
+        }
+      }
+    }
+    class ModuleCollection {
+      constructor(rawRootmodule) {
+        this.register([], rawRootmodule, false)
+      }
+      get (path) {
+        return path.reduce((module, key) => {
+          return module.getChild(key)
+        }, this.root)
+      }
+      getNamespace(path) {
+        let module = this.root
+        return path.reduce((namespace, key) => {
+          module = module.getChild(key)
+          return namespace + (module.namespace ? key + '/' : '')
+        }, '')
+      }
+      update(rawRootmodule) {
+        update([], this.root, rawRootmodule)
+      }
+      register(path, rawModule, runtime = true) {
+        const newModule = new Module(rawModule, runtime)
+        if (path.length === 0) {
+          this.root = newModule
+        } else {
+          const parent = this.get(path.slice(0, -1))
+          parent.addChild(path[path.length - 1], newModule)
+        }
+        if (rawModule.modules) {
+          forEachValue(rawModule.modules, (rawRootmodule, key) => {
+            this.register(path.concat(key), rawChildModule, runtime)
+          })
+        }
+      }
+      unregister(path) {
+        const parent = this.get(path.slice(0, -1))
+        const key = path[path.length -1]
+        if(!parent.getChild(key).runtime) return
+
+        parent.removeChild(key)
+      }
+    }
+    const state = this._modules.root.state
+    installModule(this, state, [], this._modules.root)
+    function installModule(store, rootState, path, module, hot) {
+      const isRoot = !path.length
+      const namespace = store._modules.getNamespace(path)
+
+      if (module.namespace) {
+        store._modulesNamespaceMap[namespace] = module
+      }
+      if (!isRoot && !hot) {
+        const parentState = getNestedState(rootState, path.slice(0, -1))
+        const moduleName = path[path.length - 1]
+        store._withCommit(() => {
+          Vue.set(parentState, moduleName, module.state)
+        })
+      }
+      const local = module.context = makeLocalContext(store, namespace, path)
+      module.forEachMutation((mutation, key) => {
+        const namespaceType = namespace + key
+        registerMutation(store, namespaceType, mutation, local)
+      })
+      module.forEachAction((action, key) => {
+        const type = action.root ? key : namespace + key
+        const handler = action.handler || action
+        registerAction(store, type, handler, local)
+      })
+      module.forEachGetter((getter, key) => {
+        const namespaceType = namespace + key
+        registerGetter(store, namespaceType, getter, local)
+      })
+      module.forEachChild((child, key) => {
+        installModule(store, rootState, path.concat(key), child, hot)
+      })
+    }
+    function resetStoreVM (store, state, hot) {
+      const oldVm = store._vm
+      store.getters = {}
+      const wrappedGetters = store._wrappedGetters
+      const computed = {}
+      forEachValue(wrappedGetters, (fn, key) => {
+        computed[key] = () => fn(store)
+        Object.defineProperty(store.getters, key, {
+          get: () => store._vm[key],
+          enumerable: true
+        })
+      })
+      const silent = Vue.config.silent
+      Vue.config.silent = true
+      store._vm = new Vue({
+        data: {
+          $$state: state
+        },
+        computed
+      })
+      Vue.config.silent = silent
+      
+      if (store.strict) {
+        enableStrictMode(store)
+      }
+      if (oldVm) {
+        if (hot) {
+          store._withCommit(() => {
+            oldVm._data.$$state = null
+          })
+        }
+        Vue.nextTick(() => oldVm.$destroy())
+      }
+    }
+  </script>
+</body>
+</html>

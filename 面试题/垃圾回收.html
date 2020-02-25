@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var a = 'abc'
+    var b = 'abc'
+    var a = b // abc在失去了引用之后 系统会释放空间
+
+    function marry(man, woman) {
+      woman.husban = man
+      man.wife = woman
+      return {
+        father: man,
+        mother: woman
+      }
+    }
+
+    let family = marry({
+      name: 'a'
+    }, {
+      name: 'b'
+    })
+
+    // 意外的全局变量 或者是this
+    function foo() {
+      // console.log(bar)
+      const bar = 'aaaa'
+      const vara = 'aaa111aa'
+      console.log(bar, vara)
+    }
+    foo()
+
+    // 被遗忘的计时器或或调函数
+    // var someresource = getData()
+
+  </script>
+</body>
+</html>
