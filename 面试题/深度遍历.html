@@ -100,12 +100,27 @@
         queue.unshift(node)
         while(queue.length !== 0) {
           var item = queue.shift()
+          nodes.push(item)
           for(var i = 0; i < item.children; i++) {
             queue.push(item.children[i])
           }
         }
       }
       return nodes
+    }
+    function wide1(node) {
+      var nodes = []
+      if (node) {
+        var queue = []
+        queue.unshift(node)
+        while(queue.length !== 0) {
+          var item = queue.shift()
+          nodes.push(item)
+          for (var i = 0; i < item.children; i++) {
+            queue.push(item.children[i])
+          }
+        }
+      }
     }
     function deepTraversal1(node, nodeList) {
       if (node) {
@@ -116,6 +131,16 @@
       }
       return nodeList
     }
+    function deep(node, nodeList) {
+      if (node !== null) {
+        nodeList.push(node)
+        for(let i = 0; i < node.children.length; i++) {
+          deep(node.children[i], nodeList)
+        }
+      }
+      return nodeList
+    }
+
   </script>
 </body>
 </html>

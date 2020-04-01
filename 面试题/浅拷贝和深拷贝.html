@@ -76,6 +76,31 @@
       }
       return nodes
     }
+
+    [...arguments]
+    Array.prototype.slice.call(arguments)
+    Array.from(arguments)
+    args.__proto__ = Array.prototype
+
+    function test1(obj) {
+      const res = {}
+      for(let i of obj) {
+        res[i] = obj[i]
+      }
+      return res
+    }
+
+    function test2(obj) {
+      var target = {}
+      for(let i in obj) {
+        if (typeof obj[i] === 'object') {
+          target[i] = test2(obj[i])
+        } else {
+          target[i] = obj[i]
+        }
+      }
+      return target
+    }
   </script>
 </body>
 </html>

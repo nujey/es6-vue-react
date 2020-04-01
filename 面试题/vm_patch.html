@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function createElm(vnode, insertedVnodeQueue, parentElm, refElm, nested, ownerArray, index) {
+      if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
+        return
+      }
+    }
+    function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
+      let i = vnode.data
+      if (isDef(i)) {
+        const isReactivated = isDef(vnode.componentInstance) && i.keepAlive
+        if (isDef(i = i.hook) && isDef(i = i.init)) {
+          i(vnode, false)
+        }
+        if (isDef(vnode.componentInstance)) {
+          initComponent(vnode, insertedVnodeQueue)
+          insert(parentElm, vnode.elm, refElm)
+          if (isTrue(isReactivated)) {
+            reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm)
+          }
+          return true
+        }
+      }
+    }
+    function init(vnode, hydrating) {
+      if (vnode.componentInstance && !vnode.componentInstance._isDeatroyed && vnode.data.keepAlive) {
+        const child = vnode.componentInstance = createComponentInstanceForVnode(vnode, activeInstance)
+        child.$mount(hydrating ? vnode.elm : undefined, hydrating)
+      }
+    }
+    function createComponentInstanceForVnode(vnode, parent) {
+      const options = {
+        _isComponent: true,
+        _parentVnode: vnode,
+        parent
+      }
+      const inlineTemplate = vnode.data.inlineTemplate
+      if (isDef(inlineTemplate)) {
+        options.render = inlineTemplate.render
+        options.staticRenderFns = inlineTemplate.staticRenderFns
+      }
+      return new vnode.componentOptions.Ctor(options) // 子组件的构造函数
+    }
+    function callHook(vm, hook) {
+      pushTarget()
+      const handlers = vm.$options[hook]
+      if (handlers) {
+        for(let i =0; i < handlers.length; i++) {
+          try{
+            handlers[i].call(vm)
+          } catch(e) {
+            handleError(e, vm, `${hook}hook`)
+          }
+        }
+      }
+      if (vm._hasHookEvent) {
+        vm.$emit('hook:' + hook)
+      }
+      popTarget()
+    }
+    Vue.prototype._init = function(options) {
+      initLifecycle(vm)
+      initEvents(vm)
+      initRender(vm)
+      callHook(vm, 'beforeCreate')
+      initInjections(vm)
+      initState(vm)
+      initProvide(vm)
+      callHook(vm, 'created')
+    }
+  </script>
+</body>
+</html>

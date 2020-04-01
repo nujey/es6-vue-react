@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function debounceStart(fn, delay, ctx) {
+      let immediate = true
+      let movement = null
+      return function() {
+        let args = arguments
+        if (immediate) {
+          fn.apply(ctx, args)
+          immediate = false
+        }
+        clearTimeout(movement)
+        movement = setTimeout(function() {
+          immediate = true
+        }, delay)
+      }
+    }
+    function debounceTail (fn, delay, ctx) {
+      let movement = null
+      return function () {
+        let args = arguments
+
+        clearTimeout(movement)
+        movement = setTimeout(function() {
+          fn.apply(ctx, args)
+        }, delay)
+      }
+    }
+    function throttle(fn, delay, ctx) {
+      let isAvail = true
+      return function() {
+        let args = arguments
+        if (isAvail) {
+          fn.apply(ctx, args)
+          isAvail = false
+          setTimeout(() => {isAvail = true}, delay)
+        }
+      }
+    }
+    window.onscroll = throttle(function(e) {
+      console.log('100')
+    }, 100, this)
+  </script>
+</body>
+</html>
