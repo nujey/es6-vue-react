@@ -33,3 +33,5 @@ export function install(_Vue) {
   Vue = _Vue
   applymixin(Vue)
 }
+
+// 测试一下子模块
